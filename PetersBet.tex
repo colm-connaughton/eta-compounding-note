@@ -1,0 +1,227 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{palatino}
+\usepackage{helvet}
+\usepackage{times}
+\usepackage{layout}
+\usepackage[a4paper,top=2.0cm, right=2.0cm, bottom=2.0cm, left=2.0cm]{geometry}
+\usepackage{enumitem}
+\usepackage{amsthm}
+\usepackage{url}
+\usepackage{multicol,caption}
+
+\setlist{nolistsep}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{{\hvnb Colm}}
+\chead{}
+\rhead{}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+
+\newcommand*{\helvetica}{\fontfamily{phv}\selectfont}
+\newcommand*{\helveticanarrow}{\fontfamily{phv}\fontseries{mc}\selectfont}
+\newcommand*{\hvnb}{\fontfamily{phv}\fontseries{bc}\selectfont}
+\newcommand*{\palatino}{\fontfamily{ppl}\selectfont}
+\newcommand*{\timesroman}{\fontfamily{ptm}\selectfont}
+
+% Commands to produce formatted layout
+\newcommand*{\projecttitle}[1]{\begin{center}\Large\hvnb{\color{blue} #1}\end{center}}
+\newcommand*{\theauthor}[1]{\noindent  \helveticanarrow{#1}\\}
+
+
+
+% Support for multiple bibliographies
+\usepackage[sectionbib,numbers]{natbib}
+\usepackage{chapterbib}
+
+\usepackage[compact]{titlesec}
+\usepackage{lipsum}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\titleformat{\section}
+  {\large\hvnb\color{blue}}{\thesection}{1em}{}
+\titleformat{\subsection}
+  {\hvnb}{\thesubsection}{1em}{}
+\titleformat{\chapter}
+  {\Large\hvnb\color{blue}}{Lecture \thechapter:}{1em}{}
+
+\newenvironment{Figure} 
+  {\par\medskip\noindent\minipage{\linewidth}}
+  {\endminipage\par\medskip}
+
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\dd}[2]{\frac{d {#1}}{d {#2}}}
+\DeclareMathOperator{\sgn}{sgn}
+
+\begin{document}
+\setlength{\bibsep}{0.2pt}
+\setlength{\itemsep}{0.2pt}
+
+\helveticanarrow
+\rhead{\hvnb  15/06/2023 working notes}
+
+\projecttitle{Peters' bet}
+
+%\theauthor{Colm Connaughton} 
+
+
+\begin{multicols}{2}
+
+%\section{Definition of the model}
+Consider a multiplicative random walk in discrete time with growth factors $g+r$ and $g-r$ occuring with equal probability: 
+\begin{align}
+\label{eq-multRandomWalk}
+x_{t+1} = \left\{ 
+\begin{array}{ll}
+\left(g +r \right)\,x_t & \text{with probability $\frac{1}{2}$}\\
+\left(g - r \right)\,x_t  & \text{with probability $\frac{1}{2}$}.
+\end{array}
+\right.
+\end{align}
+We can think of the parameter $g$ as the average growth factor and $r$ parameter as the variability. We must have $\left| r \right| < g$. The choice $g=\frac{21}{10}$ and $r=\frac{9}{20}$ gives the growth factors of 1.5 and 0.6 corresponding to Peters' bet in Ford and Kay. We further assume that $x_0 = 1$.
+
+The following identities satisfied by the binomial coefficients will be useful:
+\begin{align}
+\label{eq:binomialSum0} \sum_{n=0}^T {T \choose n} =& 2^T\\
+\label{eq:binomialSum1}  \sum_{n=0}^T {T \choose n} \,n  =& \sum_{n=0}^T {T \choose n} \,(T - n) = T\,2^{T -1}\\
+\label{eq:binomialSum2}  \sum_{n=0}^T {T \choose n} \,n^2  =& \sum_{n=0}^T {T \choose n} \,(T - n)^2 = T\,(T+1)\,2^{T -2}.
+\end{align}
+
+
+If, after playing $T$ rounds of the game, we experience $n$ ``wins" (and $T-n$ "losses"), then $x_T$ will take the value
+\begin{align*}
+x_T =  (g+r)^n (g-r)^{T-n}.
+\end{align*}
+The probability of this value is
+\begin{align}
+\label{eq:binomialDistr}
+p(n) = {T \choose n} \left(\frac{1}{2}\right)^T,
+\end{align}
+where ${T \choose n}$ is the binomial coefficient -  the number of ways in which $n$ wins can occur in a sequence of $T$ rounds of the game.
+The expectation value of $x_T$ is therefore
+\begin{align}
+\nonumber \mathbb{E}\left[x_T \right] =& \sum_{n=0}^T  {T \choose n} \left(\frac{1}{2}\right)^T (g+r)^n (g-r)^{T-n}\\
+\nonumber =&  \sum_{n=0}^T  {T \choose n}  \left( \frac{g+r}{2}\right)^n  \left( \frac{g-r}{2}\right)^{T-n} \\
+\label{eq-expectationxT}=& g^T,
+\end{align}
+where the final step follows from the binomial theorem.
+Thus the expectation value grows exponentially,
+\begin{align}
+ \mathbb{E}\left[x_T \right]  = \exp(\mu T),
+\end{align}
+with rate $\mu = \log(g)$.
+Any moment of $x_T$ can be calculated in the same way:
+\begin{align}
+\nonumber \mathbb{E}\left[x_T^p \right] =& \sum_{n=0}^T  {T \choose n} \left(\frac{1}{2}\right)^T (g+r)^{p\, n} (g-r)^{p\,(T-n)}\\
+\nonumber =&  \left[\frac{(g+r)^p}{2}+  \frac{(g-r)^p}{2}\right]^T. \\
+\end{align}
+In particular, the variance is
+\begin{align}
+\nonumber \mathbb{E}\left[x_T^2 \right] =&   \left(g^2+r^2 \right)^T. 
+\end{align}
+The standard deviation is then
+\begin{align}
+\nonumber  \text{std}\left[ x_T\right] = & \sqrt{ \mathbb{E}\left[x_T^2 \right]  -  \mathbb{E}\left[x_T \right]^2 }\\
+ = & \sqrt{ \left(g^2+r^2 \right)^T -g^{2 T}},
+\end{align}
+which also grows exponentially at a rate which is faster than that of the expectation value, Eq.~(\ref{eq-expectationxT}). Thus the uncertainty in the outcome after $T$ rounds grows even in relative terms.
+
+The {\em typical} value of $x_T$ can be found by finding $n^*$,  the value of $n$ that maximises the probability, Eq.~(\ref{eq:binomialDistr}). This is
+\begin{align*}
+n^* =& \argmax_{n} {T \choose n}\\
+=& \frac{T}{2}.
+\end{align*}
+Thus the typical value of $x_T$ is
+\begin{align}
+\nonumber \widetilde{x}_T =& (g+r)^\frac{T}{2} (g-r)^\frac{T}{2}\\
+\label{eq:typicalxT} =& \left( \sqrt{g^2 - r^2}\right)^T.
+\end{align}
+The typical value also shows exponential dependence on $T$, but since $\left| r\right| < g$, it is clear that the typical value of $x_T$ is always exponentially smaller than the expectation value of $x_T$.
+For the values of $g$ and $r$ corresponding to Peters' bet, the expectation value {\em increases} by a factor of 1.05 per round whereas the typical value {\em decreases} by a factor of $\frac{3}{\sqrt{10}} \approx 0.948683$ per round.
+
+The time averaged growth rate is
+\begin{align}
+\label{eq:gammaT}
+\gamma_T = \frac{\log x_T}{T}.
+\end{align}
+Let us now examine some of the statistical properties of $\gamma_t$.
+From Eq.~(\ref{eq-multRandomWalk}), the quantity $y_t = \log x_t$ follows a simple additive random walk:
+\begin{align}
+\label{eq-addRandomWalk}
+y_{t+1} = \left\{ 
+\begin{array}{ll}
+y_t + a& \text{with probability $\frac{1}{2}$}\\
+y_t + b  & \text{with probability $\frac{1}{2}$},
+\end{array}
+\right.
+\end{align}
+where 
+\begin{align*}
+a =& \log (g+r)\\
+b = & \log (g-r). 
+\end{align*}
+As a random variable, $y_t$ behaves very differently to $x_t$.  If, after playing $T$ rounds of the game, we experience $n$ ``wins" (and $T-n$ "losses"), then $y_T$ will take the value
+\begin{align*}
+y_T =  n\, a + (T-n)\,b.
+\end{align*}
+The corresponding probability is again given by Eq.~(\ref{eq:binomialDistr}). 
+The expectation value of $y_T$ is 
+\begin{align}
+\nonumber \mathbb{E}\left[y_T \right] =& \sum_{n=0}^T  {T \choose n} \left(\frac{1}{2}\right)^T  \left[ n\, a + (T-n)\,b \right] \\
+\nonumber  = & \frac{T}{2} \left( a \sum_{n=0}^T {T \choose n} \,n + b \sum_{n=0}^T {T \choose n} \,(T-n)\right)\\
+\label{eq-expectationyT}=&  \frac{T}{2} \left(a  + b \right)
+\end{align}
+where the last line follows from the identity Eq.~(\ref{eq:binomialSum1}).
+It is a bit more work to calculate the second moment of $y_T$:
+\begin{align}
+\nonumber \mathbb{E}\left[y_T^2 \right] =& \sum_{n=0}^T  {T \choose n} \left(\frac{1}{2}\right)^T  \left[ n\, a + (T-n)\,b \right] ^2\\
+\nonumber =& \frac{(a-b)^2}{2^T}\left( \sum_{n=0}^T  {T \choose n} n^2 \right) +  2\, \frac{(a - b)\, b\, T}{2^T} \left(\sum_{n=0}^T  {T \choose n} n \right) \\
+\nonumber &  + \frac{b^2 T^2}{2^T} \left( \sum_{n=0}^T  {T \choose n} \right) \\ 
+\label{eq:varianceyT} = & \frac{1}{4} T \left( (a + b)^2 T  + (a-b)^2\right),
+\end{align}
+where the last line uses Eqs.~(\ref{eq:binomialSum0})-(\ref{eq:binomialSum2}).
+Going back to Eq.~(\ref{eq:gammaT}) for the growth rate, $\gamma_T$, we can now use Eqs.~(\ref{eq-expectationyT}) and (\ref{eq:varianceyT}) to write down the expectation value and variance of the growth rate:
+\begin{align}
+\nonumber \mathbb{E}\left[ \gamma_T \right] = & \frac{1}{2} \left(\log (g+r) + \log (g-r)\right)\\
+\label{eq:expectationgammaT} =& \log \sqrt{g^2 - r^2},\\
+\nonumber \mathbb{E}\left[ \gamma_T^2 \right] = &  \frac{1}{4}  \left(\log (g+r) + \log (g-r)\right)^2\\
+\nonumber & + \frac{1}{4}\frac{1}{T} \left(\log (g+r) - \log (g-r)\right)^2\\
+\label{eq:variancegammaT} =&  \left(\log \sqrt{g^2 - r^2}\right)^2 + \frac{1}{T} \left( \log \sqrt{\frac{g+r}{g-r}}\,\right)^2.
+\end{align}
+The standard deviation of $\gamma_T$ is then
+\begin{align}
+\nonumber  \text{std}\left[ \gamma_T\right] = & \sqrt{ \mathbb{E}\left[\gamma_T^2 \right]  -  \mathbb{E}\left[\gamma_T \right]^2 }\\
+\label{eq:stddevgammaT} = &  \frac{1}{\sqrt{T}} \left( \log \sqrt{\frac{g+r}{g-r}}\,\right).
+\end{align}
+Since $\text{std}\left[ \gamma_T\right]$ goes to zero as $T$ becomes large,  $\gamma_T$ becomes deterministic and tends to the value given by Eq.~(\ref{eq:expectationgammaT}).
+Eqs.~(\ref{eq:expectationgammaT}) and (\ref{eq:stddevgammaT}) allow us to determine how many rounds of the game, $T^*$, are required for the standard deviation of $\gamma_T$ to become comparable to the expectation value of $\gamma_T$. This establishes a natural timescale that quantifies what we mean by ``large'' time.  Setting the right hand sides of Eqs.~(\ref{eq:expectationgammaT}) and (\ref{eq:stddevgammaT}) equal to each other and solving for $T$ gives a timescale:
+\begin{align}
+T^* = \left( \frac{\log\left(\sqrt{\frac{g+r}{g-r}}\right)}{ \log\left(\sqrt{g^2 - r^2} \right)}\right)^2.
+\end{align}
+For the parameters corresponding to Peters' bet, $T^*$ corresponds to 5 rounds of the game. Thus ``large time'' corresponds to a number of iterations much larger than 5 - perhaps 50 or so?
+
+To conclude, consider a trajectory that grows exponentially with the long-time growth rate, Eq.~(\ref{eq:expectationgammaT}). This is given by
+\begin{align*}
+\bar{x}_T =& \exp \left( \gamma_T T\right)\\
+=& \exp \left(\mathbb{E} \left[ \log x_T \right]\right)\\
+=& \exp \log \left( \sqrt{g^2 - r^2}\,\right)\,T\\
+=& \left( \sqrt{g^2 - r^2}\right)^T,
+\end{align*}
+which corresponds to the typical value of the original process $x_T$ found in Eq.~(\ref{eq:typicalxT}). This correspondence explains why analysing repeated multiplicative gambles in terms of grow rates is equivalent to reasoning about representative outcomes rather than expectation values of outcomes.
+
+%\bibliographystyle{plain}
+%\bibliography{refs}
+
+
+\end{multicols}
+\end{document}
