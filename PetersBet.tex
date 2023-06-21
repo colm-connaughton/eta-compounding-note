@@ -88,7 +88,7 @@ x_{t+1} = \left\{
 \end{array}
 \right.
 \end{align}
-We can think of the parameter $g$ as the average growth factor and $r$ parameter as the variability. We must have $\left| r \right| < g$. The choice $g=\frac{21}{10}$ and $r=\frac{9}{20}$ gives the growth factors of 1.5 and 0.6 corresponding to Peters' bet in Ford and Kay. We further assume that $x_0 = 1$.
+We can think of the parameter $g$ as the average growth factor and $r$ parameter as the variability. We must have $\left| r \right| < g$. The choice $g=\frac{21}{20}$ and $r=\frac{9}{20}$ gives the growth factors of 1.5 and 0.6 corresponding to Peters' bet in Ford and Kay. We further assume that $x_0 = 1$.
 
 The following identities satisfied by the binomial coefficients will be useful:
 \begin{align}
@@ -206,9 +206,9 @@ The standard deviation of $\gamma_T$ is then
 Since $\text{std}\left[ \gamma_T\right]$ goes to zero as $T$ becomes large,  $\gamma_T$ becomes deterministic and tends to the value given by Eq.~(\ref{eq:expectationgammaT}).
 Eqs.~(\ref{eq:expectationgammaT}) and (\ref{eq:stddevgammaT}) allow us to determine how many rounds of the game, $T^*$, are required for the standard deviation of $\gamma_T$ to become comparable to the expectation value of $\gamma_T$. This establishes a natural timescale that quantifies what we mean by ``large'' time.  Setting the right hand sides of Eqs.~(\ref{eq:expectationgammaT}) and (\ref{eq:stddevgammaT}) equal to each other and solving for $T$ gives a timescale:
 \begin{align}
-T^* = \left( \frac{\log\left(\sqrt{\frac{g+r}{g-r}}\right)}{ \log\left(\sqrt{g^2 - r^2} \right)}\right)^2.
+T^* = \left( \frac{\log\left(\frac{g+r}{g-r}\right)}{ \log\left(g^2 - r^2 \right)}\right)^2.
 \end{align}
-For the parameters corresponding to Peters' bet, $T^*$ corresponds to 5 rounds of the game. Thus ``large time'' corresponds to a number of iterations much larger than 5 - perhaps 50 or so?
+For the parameters corresponding to Peters' bet, $T^*$ corresponds to 75 rounds of the game. Thus ``large time'' corresponds to a number of iterations much larger than 75.
 
 To conclude, consider a trajectory that grows exponentially with the long-time growth rate, Eq.~(\ref{eq:expectationgammaT}). This is given by
 \begin{align*}
