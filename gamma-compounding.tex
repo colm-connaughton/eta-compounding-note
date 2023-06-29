@@ -1,0 +1,148 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{palatino}
+\usepackage{helvet}
+\usepackage{times}
+\usepackage{layout}
+\usepackage[a4paper,top=2.0cm, right=2.0cm, bottom=2.0cm, left=2.0cm]{geometry}
+\usepackage{enumitem}
+\usepackage{amsthm}
+\usepackage{url}
+\usepackage{multicol,caption}
+
+\setlist{nolistsep}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{{\hvnb Colm}}
+\chead{}
+\rhead{}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+
+\newcommand*{\helvetica}{\fontfamily{phv}\selectfont}
+\newcommand*{\helveticanarrow}{\fontfamily{phv}\fontseries{mc}\selectfont}
+\newcommand*{\hvnb}{\fontfamily{phv}\fontseries{bc}\selectfont}
+\newcommand*{\palatino}{\fontfamily{ppl}\selectfont}
+\newcommand*{\timesroman}{\fontfamily{ptm}\selectfont}
+
+% Commands to produce formatted layout
+\newcommand*{\projecttitle}[1]{\begin{center}\Large\hvnb{\color{blue} #1}\end{center}}
+\newcommand*{\theauthor}[1]{\noindent  \helveticanarrow{#1}\\}
+
+
+
+% Support for multiple bibliographies
+\usepackage[sectionbib,numbers]{natbib}
+\usepackage{chapterbib}
+
+\usepackage[compact]{titlesec}
+\usepackage{lipsum}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\titleformat{\section}
+  {\large\hvnb\color{blue}}{\thesection}{1em}{}
+\titleformat{\subsection}
+  {\hvnb}{\thesubsection}{1em}{}
+\titleformat{\chapter}
+  {\Large\hvnb\color{blue}}{Lecture \thechapter:}{1em}{}
+
+\newenvironment{Figure} 
+  {\par\medskip\noindent\minipage{\linewidth}}
+  {\endminipage\par\medskip}
+
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\dd}[2]{\frac{d {#1}}{d {#2}}}
+\DeclareMathOperator{\sgn}{sgn}
+
+\begin{document}
+\setlength{\bibsep}{0.2pt}
+\setlength{\itemsep}{0.2pt}
+
+\helveticanarrow
+\rhead{\hvnb  29/06/2023 LML working notes}
+
+\projecttitle{The $\gamma$-compounding random walk}
+
+%\theauthor{Colm Connaughton} 
+
+
+\begin{multicols}{2}
+
+%\section{Definition of the model}
+\cite{redner1990random} \cite{carr2022generalized}
+
+Define the generalised exponential and logarithm as
+\begin{align}
+\label{eq:exp_gamma}
+\exp_\gamma (x) = & \left\{
+\begin{array}{ll} 
+\left( 1 + \gamma\,x\right)^\frac{1}{\gamma} & \text{$0 < \gamma \leq 1$}\\
+\exp(x) & \text{$\gamma=0$}
+\end{array}
+\right. \\
+\label{eq:log_gamma}
+\log_\gamma (x) = & \left\{
+\begin{array}{ll} 
+\frac{1}{\gamma}\left( x^\gamma -1 \right) &  \text{$0 < \gamma \leq 1$}\\
+\log(x) & \text{$\gamma=0$}
+\end{array}
+\right. ,
+\end{align}
+and the generalised compounding operator, $\otimes$, as
+\begin{align}
+x \otimes y = & \exp_\gamma\left[ \log_\gamma(x )+ \log_\gamma(y)\right].
+\end{align}
+We are interested in studying the gamma-compounding random walk in discrete time with growth factors $g+r$ and $g-r$ occurring with equal probability: 
+\begin{align}
+\label{eq-multRandomWalk}
+x_{t+1} = \left\{ 
+\begin{array}{ll}
+x_t \otimes \left(g +r \right) & \text{with probability $\frac{1}{2}$}\\
+x_t \otimes \left(g - r \right)  & \text{with probability $\frac{1}{2}$}.
+\end{array}
+\right.
+\end{align}
+with $x_0 = X_0$.
+
+If, after playing $T$ rounds of the game, we experience $n$ ``wins" (and $T-n$ "losses"), then $x_T$ will take the value
+\begin{align*}
+x_T =  &X_0\otimes \underbrace{(g+r)\otimes \ldots \otimes (g+r)}_{n\text{-times}} \otimes \underbrace{(g-r)\otimes \ldots \otimes (g-r)}_{T-n\text{-times}} \\
+=& X_0\otimes\exp_\gamma\left[n\,\log_\gamma(g+r)\right] \otimes \exp_\gamma\left[(T-n)\,\log_\gamma(g-r) \right]\\
+=& X_0\otimes \exp_\gamma\left[ n\,\log_\gamma(g+r) + (T-n)\log_\gamma(g-r) \right].
+\end{align*}
+The probability of this value is
+\begin{align}
+\label{eq:binomialDistr}
+p(n) = {T \choose n} \left(\frac{1}{2}\right)^T,
+\end{align}
+where ${T \choose n}$ is the binomial coefficient -  the number of ways in which $n$ wins can occur in a sequence of $T$ rounds of the game.
+The expectation value of $x_T$ is therefore
+\begin{align}
+\label{eq-expectationxT}\mathbb{E}\left[x_T \right] =& \sum_{n=0}^T  {T \choose n} \left(\frac{1}{2}\right)^T  X_0\otimes\exp_\gamma\left[ n\,\log_\gamma(g+r) \right.\\
+\nonumber & \left. + (T-n)\log_\gamma(g-r) \right].
+\end{align}
+This sum can be done exactly at least for the case $\gamma = \frac{1}{2}$ (details later):
+\begin{align}
+x_T =& \left(\sqrt{X_0}-1 +\sqrt{P(T, \sqrt{g+r}, \sqrt{g-r})} \right)^2,
+\end{align}
+where
+\begin{align*}
+P(n, x, y) =& \frac{1}{4} n (n+1) x^2+\frac{1}{2} n (n-1) x y\\
+& -n (n-1) x+\frac{1}{4} n (n+1) y^2-n (n-1) y\\
+& +(n-1)^2.
+\end{align*}
+\bibliographystyle{plain}
+\bibliography{refs}
+
+
+\end{multicols}
+\end{document}
