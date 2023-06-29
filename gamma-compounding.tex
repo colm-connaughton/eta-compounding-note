@@ -80,6 +80,12 @@
 %\section{Definition of the model}
 \cite{redner1990random} \cite{carr2022generalized}
 
+\begin{align}
+\label{eq:binomialSum0} \sum_{n=0}^T {T \choose n} =& 2^T\\
+\label{eq:binomialSum1}  \sum_{n=0}^T {T \choose n} \,n  =& \sum_{n=0}^T {T \choose n} \,(T - n) = T\,2^{T -1}\\
+\label{eq:binomialSum2}  \sum_{n=0}^T {T \choose n} \,n^2  =& \sum_{n=0}^T {T \choose n} \,(T - n)^2 = T\,(T+1)\,2^{T -2}.
+\end{align}
+
 Define the generalised exponential and logarithm as
 \begin{align}
 \label{eq:exp_gamma}
@@ -103,7 +109,7 @@ x \otimes y = & \exp_\gamma\left[ \log_\gamma(x )+ \log_\gamma(y)\right].
 \end{align}
 We are interested in studying the gamma-compounding random walk in discrete time with growth factors $g+r$ and $g-r$ occurring with equal probability: 
 \begin{align}
-\label{eq-multRandomWalk}
+\label{eq-gammaRandomWalk}
 x_{t+1} = \left\{ 
 \begin{array}{ll}
 x_t \otimes \left(g +r \right) & \text{with probability $\frac{1}{2}$}\\
@@ -140,6 +146,62 @@ P(n, x, y) =& \frac{1}{4} n (n+1) x^2+\frac{1}{2} n (n-1) x y\\
 & -n (n-1) x+\frac{1}{4} n (n+1) y^2-n (n-1) y\\
 & +(n-1)^2.
 \end{align*}
+For large enough $T$ we find
+\begin{align}
+\label{eq:ExLargeT}
+\mathbb{E}\left[x_T \right]  \sim & \frac{1}{4} \left( \sqrt{g+r} + \sqrt{g-r} -2\right)^2\, T^2.
+\end{align}
+The {\em typical} value of $x_T$ can be found by finding $n^*$,  the value of $n$ that maximises the probability, Eq.~(\ref{eq:binomialDistr}). This is
+\begin{align*}
+n^* =& \argmax_{n} {T \choose n}\\
+=& \frac{T}{2}.
+\end{align*}
+Thus the typical value of $x_T$ is
+\begin{align}
+\nonumber \widetilde{x}_T =& X_0\otimes\exp_\gamma\left[ \frac{T}{2}\,\left(\log_\gamma(g+r) +\log_\gamma(g-r)\right)\right]\\
+\label{eq:typicalxT} =&\left(\frac{T}{2} \left((g-r)^{\gamma }+(g+r)^{\gamma }-2\right)+\text{X0}^{\gamma }\right)^{1/\gamma }.
+\end{align}
+For large enough $T$, we find
+\begin{align}
+\widetilde{x}_T \sim & \left(\frac{1}{2}  \left((g-r)^{\gamma }+(g+r)^{\gamma }-2\right)\right)^\frac{1}{\gamma} \, T^\frac{1}{\gamma}.
+\end{align}
+Note that for $\gamma=\frac{1}{2}$, this agrees with Eq.~(\ref{eq:ExLargeT}) which suggests that for the $\gamma$-compounding random walk, the expected value is representative.
+
+From Eq.~(\ref{eq-gammaRandomWalk}), the quantity $y_t = \log_\gamma x_t$ follows a simple additive random walk:
+\begin{align}
+\label{eq-addRandomWalk}
+y_{t+1} = \left\{ 
+\begin{array}{ll}
+y_t + a& \text{with probability $\frac{1}{2}$}\\
+y_t + b  & \text{with probability $\frac{1}{2}$},
+\end{array}
+\right.
+\end{align}
+where 
+\begin{align*}
+a =& \log_\gamma (g+r)\\
+b = & \log_\gamma (g-r). 
+\end{align*}
+If, after playing $T$ rounds of the game, we experience $n$ ``wins" (and $T-n$ "losses"), then $y_T$ will take the value
+\begin{align*}
+y_T =  n\, a + (T-n)\,b.
+\end{align*}
+The corresponding probability is again given by Eq.~(\ref{eq:binomialDistr}). 
+The expectation value of $y_T$ is 
+\begin{align}
+\nonumber \mathbb{E}\left[y_T \right] =& \sum_{n=0}^T  {T \choose n} \left(\frac{1}{2}\right)^T  \left[ n\, a + (T-n)\,b \right] \\
+\nonumber  = & \frac{T}{2} \left( a \sum_{n=0}^T {T \choose n} \,n + b \sum_{n=0}^T {T \choose n} \,(T-n)\right)\\
+\nonumber =&  \frac{T}{2} \left(a  + b \right)\\
+\label{eq-expectationyT} =&   \frac{T}{2} \left(\log_\gamma(g+r)  + \log_\gamma(g-r) \right).
+\end{align}
+where the second-but-last line follows from the identity Eq.~(\ref{eq:binomialSum1}).
+We then find that
+\begin{align}
+\nonumber \exp_\gamma \left( \mathbb{E}\left[\log_\gamma(x_T) \right]\right) = & \exp_\gamma \left[  \frac{T}{2} \left(\log_\gamma(g+r)  + \log_\gamma(g-r) \right).\right]\\
+= & \left(\frac{1}{2}  \left((g-r)^{\gamma }+(g+r)^{\gamma }-2\right)\right)^\frac{1}{\gamma} \, T^\frac{1}{\gamma}.
+\end{align}
+Again, seems to coincide with the typical value. Something to figure out here.
+
 \bibliographystyle{plain}
 \bibliography{refs}
 
