@@ -77,8 +77,24 @@
 
 \begin{multicols}{2}
 
-\section{Appendix}
-The following identities satisfied by the binomial coefficients are useful:
+\section{Appendix - binomial sums}
+We will need finite sums of powers weighted by binomial coefficients:
+\begin{align}
+\label{eq:binomialSums} S_k(T) =  \sum_{n=0}^T {T \choose n}\,n^k,
+\end{align}
+which are essentially the moments of the binomial distribution with $p=\frac{1}{2}$. 
+For $k=0$ we have $S_0(T) = 2^T$ from the  definition of the binomial distribution.
+For $k\geq 0$, we can evaluate the sums sequentially by differentiating the binomial theorem,
+\begin{align*}
+(x+ y)^T =  \sum_{n=0}^T {T \choose n} x^n y^{T-n}
+\end{align*}
+with respect to $x$ and setting $x=y=1$.
+For example, differentiating once with respect to $x$, we get
+\begin{align*}
+T \, (x+y)^{T-1} =  \sum_{n=0}^T {T \choose n} n x^{n-1} y^{T-n}
+\end{align*}
+and setting $x=y=1$ gives $S_1(T)$. We can now differentiate again and use the formula for $S_1(T)$ to get $S_2(T)$ and so on. 
+The first few sums are:
 \begin{align}
 \label{eq:binomialSum0} \sum_{n=0}^T {T \choose n} =& 2^T\\
 \label{eq:binomialSum1}  \sum_{n=0}^T {T \choose n} \,n  =& \sum_{n=0}^T {T \choose n} \,(T - n) = T\,2^{T -1}\\
@@ -111,7 +127,7 @@ An $\eta$-compounding process with growth factor, $g$, is one where the initial 
 \begin{align}
 x_{t+1} =& x_t \otimes g,
 \end{align}
-with $x_0 = X0$. For $T\geq 1$, we have
+with $x_0 = X_0$. For $T\geq 1$, we have
 \begin{align}
 \nonumber x_T = & X_0 \otimes  \underbrace{  g\otimes \ldots \otimes g}_{T\text{-times}}\\
 \nonumber =&  X_0 \otimes \exp_\eta \left[  \underbrace{  \log_\eta(g)+ \ldots + \log_\eta(g)}_{T\text{-times}}\right]\\
