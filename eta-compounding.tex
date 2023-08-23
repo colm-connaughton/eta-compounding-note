@@ -11,6 +11,8 @@
 \usepackage{amsthm}
 \usepackage{url}
 \usepackage{multicol,caption}
+\usepackage{cuted}
+
 
 \setlist{nolistsep}
 
@@ -96,10 +98,15 @@ T \, (x+y)^{T-1} =  \sum_{n=0}^T {T \choose n} n x^{n-1} y^{T-n}
 and setting $x=y=1$ gives $S_1(T)$. We can now differentiate again and use the formula for $S_1(T)$ to get $S_2(T)$ and so on. 
 The first few sums are:
 \begin{align}
-\label{eq:binomialSum0} \sum_{n=0}^T {T \choose n} =& 2^T\\
-\label{eq:binomialSum1}  \sum_{n=0}^T {T \choose n} \,n  =& \sum_{n=0}^T {T \choose n} \,(T - n) = T\,2^{T -1}\\
-\label{eq:binomialSum2}  \sum_{n=0}^T {T \choose n} \,n^2  =& \sum_{n=0}^T {T \choose n} \,(T - n)^2 = T\,(T+1)\,2^{T -2}.
+\label{eq:binomialSum0} S_0(T) & = & \sum_{n=0}^T& {T \choose n}  & = &\  2^T\\
+\label{eq:binomialSum1} S_1(T) & = & \sum_{n=0}^T& {T \choose n} \,n & = &\  T\,2^{T -1}\\
+\label{eq:binomialSum2}  S_2(T) & = & \sum_{n=0}^T& {T \choose n} \,n^2 & = &\  T\,(T+1)\,2^{T -2}\\
+\label{eq:binomialSum3}  S_3(T) & = & \sum_{n=0}^T& {T \choose n} \,n^3 & = &\  T^2\,(T+3)\,2^{T -3}.
 \end{align}
+Due to the symmetry of the binomial coefficients, we can always write
+\begin{align*}
+S_m(T) =  \sum_{n=0}^T& {T \choose T-n} n^m.
+\end{align*}
 
 \section{Definition of $\eta$-compounding}
 Adopting the notation in \cite{yamano2002some} to fit the way we usually write the isoelastic utility function, we define the generalised exponential and logarithm as
@@ -167,10 +174,11 @@ In order to keep everything well-defined we need $g-r > 1$, assuming that $g>0$ 
 We can generalise some of the calculations for the multiplicative random walk in \cite{redner1990random} to the $\eta$-compounding random walk.  
 If, after playing $T$ rounds of the game, we experience $n$ ``wins" (and $T-n$ "losses"), then $x_T$ will take the value
 \begin{align*}
-x_T =  &X_0\otimes \underbrace{(g+r)\otimes \ldots \otimes (g+r)}_{n\text{-times}} \otimes \underbrace{(g-r)\otimes \ldots \otimes (g-r)}_{T-n\text{-times}} \\
-=& X_0\otimes\exp_\eta\left[n\,\log_\eta(g+r)\right] \otimes \exp_\eta\left[(T-n)\,\log_\eta(g-r) \right]\\
-=& X_0\otimes \exp_\eta\left[ n\,\log_\eta(g+r) + (T-n)\log_\eta(g-r) \right].
+x_T =  &X_0\otimes \underbrace{g_1\otimes \ldots \otimes g_1}_{n\text{-times}} \otimes \underbrace{g_2\otimes \ldots \otimes g_2}_{T-n\text{-times}} \\
+=& X_0\otimes\exp_\eta\left[n\,\log_\eta(g_1)\right]\! \otimes \!\exp_\eta\left[(T\!-\!n) \log_\eta(g_2) \right]\\
+=& X_0\otimes \exp_\eta\left[ n\,\log_\eta(g_1) + (T\!-\!n)\log_\eta(g_2) \right],
 \end{align*}
+where for brevity we write $g_1 = g+r$ and $g_2 = g-r$.
 The probability of this value is
 \begin{align}
 \label{eq:binomialDistr}
@@ -181,12 +189,25 @@ The expectation value of $x_T$ is therefore
 \begin{align}
 \nonumber \mathbb{E}\left[x_T \right] =& \sum_{n=0}^T  {T \choose n} \left(\frac{1}{2}\right)^T  X_0\otimes\exp_\eta\left[ n\,\log_\eta(g_1) \right.\\
 \nonumber & \left. + (T-n)\log_\eta(g_2) \right]\\
-\label{eq-expectationxT}=&   \frac{1}{2^T} \sum_{n=0}^T  {T \choose n} \left[X_0^{1-\eta } -T + n g_1^{1-\eta }+ (T-n) g_2^{1-\eta }\right]^{\frac{1}{1-\eta }},
+\nonumber =&   \frac{1}{2^T} \sum_{n=0}^T  {T \choose n} \left[X_0^{1-\eta } -T + n g_1^{1-\eta }\right.\\
+\nonumber &\left. + (T-n) g_2^{1-\eta }\right]^{\frac{1}{1-\eta }}\\
+\label{eq-expectationxT} =&  \frac{1}{2^T} \sum_{n=0}^T  {T \choose n} \left[X_0^{1-\eta }  +G_2 T + (G_1-G_2) n \right]^{\frac{1}{1-\eta }},
 \end{align}
-where, for brevity we have written $g_1 = g+r$ and $g_2 = g-r$.
+where we write $G_{1,2} = g_{1,2}^{1-\eta}-1$  to keep the notation compact.
 
 \section{Expectation value for the case of $\eta=\frac{1}{2}$}
-This sum can be done exactly at least for the case $\eta = \frac{1}{2}$:
+
+This sum in Eq.~(\ref{eq-expectationxT}) can be done exactly at least for the case $\eta = \frac{1}{2}$ where we have
+\begin{align*}
+ \mathbb{E}\left[x_T \right] =& \frac{1}{2^T} \sum_{n=0}^T  {T \choose n} \left[\sqrt{X_0}  +G_2 T + (G_1-G_2) n \right]^2.
+\end{align*}
+After expanding the square in the summand and using Eqs.~(\ref{eq:binomialSum0})-(\ref{eq:binomialSum2}) some algebra leads to
+\begin{align*}
+ \mathbb{E}\left[x_T \right] =& \frac{1}{4} (G_1+G_2)^2\, T^2 \\
+ & + \left[\frac{1}{4}(G_1-G_2)^2 + \sqrt{X_0} (G_1+G_2)\right]\,T\\
+ & +X_0.
+\end{align*}
+In the original notation this is:
 \begin{align}
 \label{eq:expectationExact} \mathbb{E}\left[x_T\right] =& \frac{1}{4}\left(\sqrt{g+r}+\sqrt{g-r}-2\right)^2\,T^2 \\
 \nonumber &+ \left[ (\sqrt{g+r}+\sqrt{g-r}-2) \sqrt{X_0} \right.\\
@@ -199,13 +220,13 @@ For large  $T$ we find
 \mathbb{E}\left[x_T \right]  \sim & \frac{1}{4} \left( \sqrt{g+r} + \sqrt{g-r} -2\right)^2\, T^2.
 \end{align}
 
-\section{Typical value for the $\eta$-compounding random walk}
-The {\em typical} value of $x_T$ can be found by finding $n^*$,  the value of $n$ that maximises the probability, Eq.~(\ref{eq:binomialDistr}). This is
+\section{Most likely value for the $\eta$-compounding random walk}
+The {\em most likely} value of $x_T$ can be found by finding $n^*$,  the value of $n$ that maximises the probability, Eq.~(\ref{eq:binomialDistr}). This is
 \begin{align*}
 n^* =& \argmax_{n} {T \choose n}\\
 =& \frac{T}{2}.
 \end{align*}
-Thus the typical value of $x_T$ is
+Thus the most likely value of $x_T$ is
 \begin{align}
 \nonumber \widetilde{x}_T =& X_0\otimes\exp_\eta\left[ \frac{T}{2}\,\left(\log_\eta(g+r) +\log_\eta(g-r)\right)\right]\\
 \label{eq:typicalxT} =&\left(\text{X}_0^{1-\eta} + \left((g+r)^{1-\eta }+(g-r)^{1-\eta }-2\right)\, \frac{T}{2} \right)^\frac{1}{1-\eta}.
@@ -214,7 +235,7 @@ For large $T$, we find
 \begin{align}
 \widetilde{x}_T \sim & \left(\frac{1}{2}  \left((g+r)^{1-\eta }+(g-r)^{1-\eta }-2\right)\right)^\frac{1}{1-\eta} \, T^\frac{1}{1-\eta}.
 \end{align}
-Note that for $\gamma=\frac{1}{2}$, this agrees with Eq.~(\ref{eq:ExLargeT}) which suggests that for the $\frac{1}{2}$-compounding random walk, the expected value is representative. For $\eta=\frac{1}{2}$, it turns out that the difference between the expected value and the typical value is sub-leading in $T$:
+Note that for $\gamma=\frac{1}{2}$, this agrees with Eq.~(\ref{eq:ExLargeT}) which suggests that for the $\frac{1}{2}$-compounding random walk, the expected value is representative. For $\eta=\frac{1}{2}$, it turns out that the difference between the expected value and the most likely value is sub-leading in $T$:
 \begin{align}
 \label{eq:difference}\mathbb{E}\left[x_T \right] -  \widetilde{x}_T = \frac{1}{2} T \left(g-\sqrt{g-r} \sqrt{g+r}\right)
 \end{align}
@@ -248,7 +269,7 @@ The expectation value of $y_T$ is
 \label{eq-expectationyT} =&   \frac{T}{2} \left(\log_\eta(g+r)  + \log_\eta(g-r) \right).
 \end{align}
 where the second-but-last line follows from the identity Eq.~(\ref{eq:binomialSum1}).
-Thus the time averaged growth rate corresponds to the growth rate of the typical trajectory.
+Thus the time averaged growth rate corresponds to the growth rate of the most likely trajectory.
 We then find that
 \begin{align}
 \nonumber \exp_\eta \left( \mathbb{E}\left[\log_\eta(x_T) \right]\right) = & \exp_\eta \left[  \frac{T}{2} \left(\log_\eta(g+r)  + \log_\eta(g-r) \right).\right]\\
