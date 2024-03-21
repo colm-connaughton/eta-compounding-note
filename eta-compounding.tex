@@ -70,7 +70,7 @@
 \setlength{\itemsep}{0.2pt}
 
 \helveticanarrow
-\rhead{\hvnb  23/07/2023 LML working notes}
+\rhead{\hvnb  21/03/2024 LML working notes}
 
 \projecttitle{The $\eta$-compounding random walk}
 
@@ -308,10 +308,92 @@ The difference between the two now grows quadratically in time:
 \label{eq:difference2}\mathbb{E}\left[x_T \right] -  \widetilde{x}_T &= \frac{3}{8} (G_1+G_2)(G_1-G_2)^2\, T^2\\
 \nonumber&+ \frac{3}{4} X_0^\frac{1}{3} (G_1-G_2)^2\,T.
 \end{align}
+\end{multicols}
+
+\section{Asymptotic analysis for $ 0 \leq \eta \leq 1$}
+
+We can adapt the analysis of Redner \cite{redner1990random} to calculate the leading order behaviour for $0 \leq \eta \leq 1$. Write the random multiplicative process in its more general form as
+\begin{align}
+\label{eq-etaRandomWalk2}
+x_{t+1} = \left\{ 
+\begin{array}{ll}
+x_t \otimes z_1 & \text{with probability $p$}\\
+x_t \otimes z_2  & \text{with probability $q$}.
+\end{array}
+\right.
+\end{align}
+with $x_0 = 1$.
+The binomial distribution is
+\begin{align}
+P(T,n) = \frac{T!}{(T-n)!\,n!}\, p^n q^{T-n},
+\end{align}
+where $q=1-p$.  We use Stirling's approximation,
+\begin{align}
+n! = \sqrt{2 \pi n} \left( \frac{n}{\mathrm{e}}\right)^n\left(1 + \frac{1}{12\,n} + \mathcal{O}\left(\frac{1}{n^2}\right)\right),
+\end{align}
+to approximate the factorials. We then take the continuum limit, $T\to \infty$ with $x=\frac{n}{T}$ fixed,
+ to obtain 
+\begin{align}
+P(x, T) = \frac{1}{\sqrt{2 \pi T \,x\,(1-x)}}\,\mathrm{e}^{T\,\phi(x)}\left(1 + \frac{1}{12}\left( 1-\frac{1}{x} - \frac{1}{1-x}\right) \frac{1}{T}   + \mathcal{O}\left(\frac{1}{T^2}\right)\right),
+\end{align}
+where
+\begin{align}
+\phi(x) =    x \log(p) +  (1 - x) \log (q)  - x \log(x)  (1 - x) \log(1 - x).
+\end{align}
+\begin{align}
+\label{eq-Laplace}
+\mathbb{E}\left[x_T^k\right] \approx T \int_{-1}^{1} \mathrm{e}^{-T\,h(x, T, \eta, k)}\, dx,
+\end{align}
+where
+\begin{align}
+\nonumber h(x, T, \eta, k) = f(x,T)   + g(x, T, \eta, k) 
+\end{align}
+where
+\begin{align}
+ f(x,T)   =  x \log(x) + (1 - x) \log(1 - x) - 
+ x \log(p) - (1 - x) \log (q) + \frac{1}{2 T} \log\left[ 2 \pi T\, x (1 - x)\right]
+\end{align}
+and
+\begin{align}
+g(x, T, \eta, k) = \left\{ 
+\begin{array}{ll}
+ -\frac{1}{T}\frac{1}{1-\eta}\log \left[ 1 + T \left(x \left[z_1^{k (1 - \eta)} - 1\right] + (1 - x) \left[z_2^{k (1 - \eta)} - 1\right]\right) \right] & \text{if $0 \leq \eta < 1$.}\\
+  - k x \log(z_1) - k (1 - x) \log(z_2) & \text{if $\eta = 1$}.
+\end{array}
+\right.
+\end{align}
+
+The standard form of a Laplace integral is
+\begin{align}
+\label{eq-Laplace0}
+I(T) = \int_{-\infty}^{\infty} F(x)\,\mathrm{e}^{T\,\phi(x)}\, dx,
+\end{align}
+The integral (\ref{eq-Laplace0}) has the following asymptotic behaviour as $T \to \infty$ \cite{bender2013advanced}:
+\begin{align}
+I(T) \sim \sqrt{\frac{2\pi }{-T\,\phi^{\prime\prime}(x^*)}}\,\mathrm{e}^{T \,\phi(x^*)}\left(F(x^*)+B(x^*) T^{-1}+\mathcal{O}\left(T^{-2}\right)\right),
+\end{align}
+where $x^*$ is the maximum of $\phi(x)$ and
+\begin{align}
+B(x^*) &=  - \frac{F^{\prime\prime}(x^*)}{2\, \phi^{\prime\prime}(x^*)} 
+                 + \frac{F(x^*) \phi^{\prime\prime\prime\prime}(x^*)}{8\,\phi^{\prime\prime}(x^*)^2}
+                 + \frac{F^\prime(x^*) \phi^{\prime\prime\prime}(x^*)}{2\,\phi^{\prime\prime}(x^*)^2}
+                 - \frac{5\,F(x^*) \phi^{\prime\prime\prime}(x^*)^2}{24\,\phi^{\prime\prime}(x^*)^3}
+\end{align}
+To compress the notation, define
+\begin{align*}
+Z_{1,2} &= z_{1,2}^{1-\eta}-1.
+\end{align*}
+The final answer is
+
+\begin{align*}
+\mathbb{E}\left[x_T\right] = T^\frac{1}{1-\eta} \left( p Z_1 + q Z_2\right)^\frac{1}{1-\eta} \left[ 1+  
+\frac{1}{T}\left( \frac{p q}{2}\frac{\eta}{(1-\eta)^2}\left(\frac{Z_1-Z_2}{pZ_1+q Z_2}\right)^2 + \frac{X_0^{1-\eta}}{1-\eta} \frac{1}{p Z_1+q Z_2}\right)
++ \mathcal{O}\left(\frac{1}{T^2}\right) \right]
+\end{align*}
 
 \bibliographystyle{plain}
 \bibliography{refs}
 
 
-\end{multicols}
+
 \end{document}
