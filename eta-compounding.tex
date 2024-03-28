@@ -310,36 +310,82 @@ The difference between the two now grows quadratically in time:
 \end{align}
 \end{multicols}
 
-\section{Asymptotic analysis for $ 0 \leq \eta \leq 1$}
-
-We can adapt the analysis of Redner \cite{redner1990random} to calculate the leading order behaviour for $0 \leq \eta \leq 1$. Write the random multiplicative process in its more general form as
+\section{Review of results for multiplicative case, $\eta = 1$}
+In this section, I summarise the results of Redner \cite{redner1990random}  for the general multiplicative random walk 
 \begin{align}
-\label{eq-etaRandomWalk2}
+\label{eq-multiplicativeRandomWalk}
 x_{t+1} = \left\{ 
 \begin{array}{ll}
-x_t \otimes z_1 & \text{with probability $p$}\\
-x_t \otimes z_2  & \text{with probability $q$}.
+x_t \, z_1 & \text{with probability $p$}\\
+x_t \, z_2  & \text{with probability $q=1-p$}.
 \end{array}
 \right.
 \end{align}
 with $x_0 = 1$.
-The binomial distribution is
+The expected value after $T$ steps is
 \begin{align}
-P(T,n) = \frac{T!}{(T-n)!\,n!}\, p^n q^{T-n},
+ \mathbb{E}\left[x_T \right] =& X_0 \sum_{n=0}^T  P(n,T) \, z_1^n z_2^{T-n},
 \end{align}
-where $q=1-p$.  We use Stirling's approximation,
+where $P(n,T)$ is the binomial distribution,
+\begin{align}
+P(n, T) = {T \choose n}\, p^n q^{T-n} =  \frac{T!}{(T-n)!\,n!}\, p^n q^{T-n}.
+\end{align}
+The expected value can be calculated directly as
+\begin{align}
+\nonumber  \mathbb{E}\left[x_T \right] =&X_0 \sum_{n=0}^T  {T \choose n} \, (p\,z_1)^n (q z_2)^{T-n}\\
+& = X_0 \left(p z_1 + q z_2 \right)^T,
+\end{align}
+which follows from the binomial theorem.
+
+For what follows, it is instructive to learn how to recover the large $T$ behaviour of $\mathbb{E}\left[x_T \right]$ without directly evaluating the sum.
+The idea is to take a continuum limit in which the sum can be written as an integral which can then be approximated using methods of asymptotic analysis.
+Starting with the binomial distribution, we use Stirling's approximation,
 \begin{align}
 n! = \sqrt{2 \pi n} \left( \frac{n}{\mathrm{e}}\right)^n\left(1 + \frac{1}{12\,n} + \mathcal{O}\left(\frac{1}{n^2}\right)\right),
 \end{align}
 to approximate the factorials. We then take the continuum limit, $T\to \infty$ with $x=\frac{n}{T}$ fixed,
  to obtain 
 \begin{align}
-P(x, T) = \frac{1}{\sqrt{2 \pi T \,x\,(1-x)}}\,\mathrm{e}^{T\,\phi(x)}\left(1 + \frac{1}{12}\left( 1-\frac{1}{x} - \frac{1}{1-x}\right) \frac{1}{T}   + \mathcal{O}\left(\frac{1}{T^2}\right)\right),
+P(x, T) = \left\{
+\begin{array}{ll}
+\frac{1}{\sqrt{2 \pi T \,x\,(1-x)}}\,\mathrm{e}^{T\,\phi(x)}\left(1 + \frac{1}{12}\left( 1-\frac{1}{x} - \frac{1}{1-x}\right) \frac{1}{T}   + \mathcal{O}\left(\frac{1}{T^2}\right)\right) & 0 < x< 1\\
+0 & \text{otherwise}
+\end{array}
+\right.
 \end{align}
 where
 \begin{align}
 \phi(x) =    x \log(p) +  (1 - x) \log (q)  - x \log(x)  (1 - x) \log(1 - x).
 \end{align}
+Writing $\mathbb{E}\left[x_T \right]$ in the form
+\begin{align*}
+\mathbb{E}\left[x_T \right] &=   X_0 \sum_{n=0}^T  P(n,T) \, \left(z_1^\frac{n}{T} z_2^{1-\frac{n}{T}}\right)^T,
+\end{align*}
+we can replace the sum by an integral in the continuum limit to obtain
+\begin{align*}
+\mathbb{E}\left[x_T \right] &=   T\,X_0\, \int_{-\infty}^\infty P(x, T)\,\left( z_1^x\,z_2^{1-x}\right)^T\\ 
+& = T\,X_0\, \int_{-\infty}^\infty P(x, T)\,\mathrm{e}^{T\left(x\log z_1 + (1-x)\log z_2 \right)}\\
+& = T^\frac{1}{2} X_0  \int_{-\infty}^\infty  \frac{d x}{\sqrt{2 \pi \,x\,(1-x)}}\,\mathrm{e}^{T\,\widetilde{\phi}(x)}\left(1 + \frac{1}{12}\left( 1-\frac{1}{x} - \frac{1}{1-x}\right) \frac{1}{T}   + \mathcal{O}\left(\frac{1}{T^2}\right)\right) \, \chi_{\left[0, 1\right]}(x),
+\end{align*}
+where 
+\begin{align}
+\widetilde{\phi}(x) =  x \log(p) +  (1 - x) \log (q)  - x \log(x)  (1 - x) \log(1 - x) + x \log z_1 +  (1-x)\log z_2.
+\end{align}
+
+
+\section{Asymptotic analysis for $ 0 \leq \eta \leq 1$}
+
+We can adapt the analysis of Redner \cite{redner1990random} to calculate the leading order behaviour for $0 \leq \eta \leq 1$. Write the random $\eta$-compounding random walk in its more general form as
+\begin{align}
+\label{eq-etaRandomWalk2}
+x_{t+1} = \left\{ 
+\begin{array}{ll}
+x_t \otimes z_1 & \text{with probability $p$}\\
+x_t \otimes z_2  & \text{with probability $q=1-p$}.
+\end{array}
+\right.
+\end{align}
+with $x_0 = 1$.
 \begin{align}
 \label{eq-Laplace}
 \mathbb{E}\left[x_T^k\right] \approx T \int_{-1}^{1} \mathrm{e}^{-T\,h(x, T, \eta, k)}\, dx,
