@@ -333,7 +333,7 @@ P(n, T) = {T \choose n}\, p^n q^{T-n} =  \frac{T!}{(T-n)!\,n!}\, p^n q^{T-n}.
 The expected value can be calculated directly as
 \begin{align}
 \nonumber  \mathbb{E}\left[x_T \right] =&X_0 \sum_{n=0}^T  {T \choose n} \, (p\,z_1)^n (q z_2)^{T-n}\\
-& = X_0 \left(p z_1 + q z_2 \right)^T,
+\label{eq-Ex-mult-exact}& = X_0 \left(p z_1 + q z_2 \right)^T,
 \end{align}
 which follows from the binomial theorem.
 
@@ -346,6 +346,7 @@ n! = \sqrt{2 \pi n} \left( \frac{n}{\mathrm{e}}\right)^n\left(1 + \frac{1}{12\,n
 to approximate the factorials. We then take the continuum limit, $T\to \infty$ with $x=\frac{n}{T}$ fixed,
  to obtain 
 \begin{align}
+\label{eq-binomial-distribution-cts-limit}
 P(x, T) = \left\{
 \begin{array}{ll}
 \frac{1}{\sqrt{2 \pi T \,x\,(1-x)}}\,\mathrm{e}^{T\,\phi(x)}\left(1 + \frac{1}{12}\left( 1-\frac{1}{x} - \frac{1}{1-x}\right) \frac{1}{T}   + \mathcal{O}\left(\frac{1}{T^2}\right)\right) & 0 < x< 1\\
@@ -362,18 +363,88 @@ Writing $\mathbb{E}\left[x_T \right]$ in the form
 \mathbb{E}\left[x_T \right] &=   X_0 \sum_{n=0}^T  P(n,T) \, \left(z_1^\frac{n}{T} z_2^{1-\frac{n}{T}}\right)^T,
 \end{align*}
 we can replace the sum by an integral in the continuum limit to obtain
-\begin{align*}
-\mathbb{E}\left[x_T \right] &=   T\,X_0\, \int_{-\infty}^\infty P(x, T)\,\left( z_1^x\,z_2^{1-x}\right)^T\\ 
-& = T\,X_0\, \int_{-\infty}^\infty P(x, T)\,\mathrm{e}^{T\left(x\log z_1 + (1-x)\log z_2 \right)}\\
-& = T^\frac{1}{2} X_0  \int_{-\infty}^\infty  \frac{d x}{\sqrt{2 \pi \,x\,(1-x)}}\,\mathrm{e}^{T\,\widetilde{\phi}(x)}\left(1 + \frac{1}{12}\left( 1-\frac{1}{x} - \frac{1}{1-x}\right) \frac{1}{T}   + \mathcal{O}\left(\frac{1}{T^2}\right)\right) \, \chi_{\left[0, 1\right]}(x),
-\end{align*}
+\begin{align}
+\nonumber \mathbb{E}\left[x_T \right] &=   T\,X_0\, \int_{-\infty}^\infty P(x, T)\,\left( z_1^x\,z_2^{1-x}\right)^T\\ 
+\nonumber & = T\,X_0\, \int_{-\infty}^\infty P(x, T)\,\mathrm{e}^{T\left(x\log z_1 + (1-x)\log z_2 \right)}\\
+\label{eq-Ex-mult1} & = T^\frac{1}{2} X_0  \int_{-\infty}^\infty  \frac{d x}{\sqrt{2 \pi \,x\,(1-x)}}\,\mathrm{e}^{T\,\widetilde{\phi}(x)}\left(1 + \frac{1}{12}\left( 1-\frac{1}{x} - \frac{1}{1-x}\right) \frac{1}{T}   + \mathcal{O}\left(\frac{1}{T^2}\right)\right) \, \chi_{\left[0, 1\right]}(x),
+\end{align}
 where 
 \begin{align}
 \widetilde{\phi}(x) =  x \log(p) +  (1 - x) \log (q)  - x \log(x)  (1 - x) \log(1 - x) + x \log z_1 +  (1-x)\log z_2.
 \end{align}
+$\mathbb{E}\left[x_T \right] $ can therefore be broken up into a series of integrals,
+\begin{align}
+\label{eq-Ex-mult2}
+\mathbb{E}\left[x_T \right] &= T^\frac{1}{2}\, \mathcal{I}_1(T) + T^{-\frac{1}{2}} \mathcal{I}_2(T) +\ldots 
+\end{align}
+each of which is of the form
+\begin{align}
+\label{eq-Fk-mult}
+ \mathcal{I}_k(T) & =  X_0\, \int_{-\infty}^\infty\, F_k(x) \,\mathrm{e}^{T\,\widetilde{\phi}(x)}\, d x,
+\end{align}
+with
+\begin{align}
+\label{eq-ampl0} F_0(x) &=  \frac{1}{\sqrt{2 \pi \,x\,(1-x)}} \, \chi_{\left[0, 1\right]}(x)\\
+\label{eq-ampl1} F_1(x) &=  \frac{1}{12}\, \frac{1}{\sqrt{2 \pi \,x\,(1-x)}} \, \left( 1-\frac{1}{x} - \frac{1}{1-x}\right)\,\chi_{\left[0, 1\right]}(x).
+\end{align}
+Integrals of the form
+\begin{align}
+\label{eq-LaplaceIntegral0}
+I(T) = \int_{-\infty}^{\infty} F(x)\,\mathrm{e}^{T\,\phi(x)}\, dx,
+\end{align}
+are standard Laplace integrals. Such integrals have the following asymptotic behaviour as $T \to \infty$ \cite{bender2013advanced}:
+\begin{align}
+\label{eq-LaplaceAsymptoticFormula}
+I(T) \sim \sqrt{\frac{2\pi }{-T\,\phi^{\prime\prime}(x^*)}}\,\mathrm{e}^{T \,\phi(x^*)}\left(F(x^*)+B(x^*) T^{-1}+\mathcal{O}\left(T^{-2}\right)\right),
+\end{align}
+where $x^*$ is the maximum of $\phi(x)$ and
+\begin{align}
+B(x^*) &=  - \frac{F^{\prime\prime}(x^*)}{2\, \phi^{\prime\prime}(x^*)} 
+                 + \frac{F(x^*) \phi^{\prime\prime\prime\prime}(x^*)}{8\,\phi^{\prime\prime}(x^*)^2}
+                 + \frac{F^\prime(x^*) \phi^{\prime\prime\prime}(x^*)}{2\,\phi^{\prime\prime}(x^*)^2}
+                 - \frac{5\,F(x^*) \phi^{\prime\prime\prime}(x^*)^2}{24\,\phi^{\prime\prime}(x^*)^3}
+\end{align}
+To find the maximum of $\widetilde{\phi}$ we solve
+\begin{align*}
+\widetilde{\phi}^\prime (x^*) &= 0\\
+ \log p z_1 - \log q z_2 - \log x^* + \log (1-x^*) &= 0\\
+ \log \left( \frac{p z_1}{q z_2} \frac{1-x^*}{x^*}\right) = 0
+\end{align*}
+which gives
+\begin{align}
+\label{eq-xStar-mult}
+x^* = \frac{\xi}{1+\xi} \hspace{1.0cm}\text{with }\xi = \frac{p z_1}{q z_2}.
+\end{align}
+The second derivative is
+\begin{align*}
+\widetilde{\phi}^{\prime\prime} (x) &= -\frac{1}{x} - \frac{1}{1-x}.
+\end{align*}
+We can now use Eq.~(\ref{eq-LaplaceAsymptoticFormula}) to extract the leading order behaviour
+of  $\mathbb{E}\left[x_T \right]$ in Eq.~(\ref{eq-Ex-mult2}) from the leading order behaviour of $\mathcal{I}_0(T)$. The quantities required are:
+\begin{align}
+\widetilde{\phi} (x^*) & = \log\left( p z_1 + q z_2 \right)\\ 
+\widetilde{\phi}^{\prime\prime} (x^*) &= - \frac{(p z_1 + q z_2)^2}{ p q z_1 z_2}\\
+F_0(x^*) & = \frac{p z_1 + q z_2}{\sqrt{2 \pi p q z_1 z_2 }}
+\end{align}
+Putting all the bits together in  Eq.~(\ref{eq-LaplaceAsymptoticFormula}) we get the leading order asymptotic behaviour
+\begin{align}
+\nonumber \mathbb{E}\left[x_T \right] &\sim T^\frac{1}{2} \, X_0 \sqrt{\frac{2 \pi p q z_1 z_2}{T (p z_1 + q z_2)^2}} \,\mathrm{e}^{T\, \log\left( p z_1 + q z_2 \right)}\,  \frac{p z_1 + q z_2}{\sqrt{2 \pi p q z_1 z_2 }}\\
+&= X_0\,  (p z_1 + q z_2)^T.
+\end{align}
+We recover the exact result, Eq.~(\ref{eq-Ex-mult-exact}). This tells us that the sub-leading terms in the expansion (\ref{eq-Ex-mult2}) must vanish.
+This can either be because they are all zero for some reason or because the corrections coming from using Stirlings formula to approximate the binomial distribution by its continuum limit in Eq.~(\ref{eq-binomial-distribution-cts-limit}) cancel the higher order terms in the Laplace integral in Eq.~(\ref{eq-LaplaceAsymptoticFormula}).
+With some help from Mathematica we can evaluate these terms to show that it is the latter.
+The sub-leading  $\mathcal{O}(T^{-1})$ contribution in Eq.~(\ref{eq-LaplaceAsymptoticFormula}) to $\mathcal{I}_0(T)$ is
+\begin{align*}
+\frac{ (p z_1 + q z_2)\left(p^2 z_1^2 + p q z_1 z_2 + q^2 z_2^2 \right)}{12 \sqrt{2 \pi  (p q z_1 z_2)^3}}
+\end{align*}
+The  leading  $\mathcal{O}(T^{-1})$ contribution to $\mathcal{I}_1(T)$ in Eq.~(\ref{eq-Ex-mult2}) is
+\begin{align*}
+- \frac{ (p z_1 + q z_2)\left(p^2 z_1^2 + p q z_1 z_2 + q^2 z_2^2 \right)}{12 \sqrt{2 \pi  (p q z_1 z_2)^3}}.
+\end{align*}
+Thus we learn that to correctly calculate the sub-leading behaviour, we need to account for cancellations between the corrections to the continuum limit of the binomial distribution and the corrections to the Laplace formula.
 
-
-\section{Asymptotic analysis for $ 0 \leq \eta \leq 1$}
+\section{Asymptotic analysis for $ 0 < \eta < 1$}
 
 We can adapt the analysis of Redner \cite{redner1990random} to calculate the leading order behaviour for $0 \leq \eta \leq 1$. Write the random $\eta$-compounding random walk in its more general form as
 \begin{align}
@@ -386,45 +457,8 @@ x_t \otimes z_2  & \text{with probability $q=1-p$}.
 \right.
 \end{align}
 with $x_0 = 1$.
-\begin{align}
-\label{eq-Laplace}
-\mathbb{E}\left[x_T^k\right] \approx T \int_{-1}^{1} \mathrm{e}^{-T\,h(x, T, \eta, k)}\, dx,
-\end{align}
-where
-\begin{align}
-\nonumber h(x, T, \eta, k) = f(x,T)   + g(x, T, \eta, k) 
-\end{align}
-where
-\begin{align}
- f(x,T)   =  x \log(x) + (1 - x) \log(1 - x) - 
- x \log(p) - (1 - x) \log (q) + \frac{1}{2 T} \log\left[ 2 \pi T\, x (1 - x)\right]
-\end{align}
-and
-\begin{align}
-g(x, T, \eta, k) = \left\{ 
-\begin{array}{ll}
- -\frac{1}{T}\frac{1}{1-\eta}\log \left[ 1 + T \left(x \left[z_1^{k (1 - \eta)} - 1\right] + (1 - x) \left[z_2^{k (1 - \eta)} - 1\right]\right) \right] & \text{if $0 \leq \eta < 1$.}\\
-  - k x \log(z_1) - k (1 - x) \log(z_2) & \text{if $\eta = 1$}.
-\end{array}
-\right.
-\end{align}
 
-The standard form of a Laplace integral is
-\begin{align}
-\label{eq-Laplace0}
-I(T) = \int_{-\infty}^{\infty} F(x)\,\mathrm{e}^{T\,\phi(x)}\, dx,
-\end{align}
-The integral (\ref{eq-Laplace0}) has the following asymptotic behaviour as $T \to \infty$ \cite{bender2013advanced}:
-\begin{align}
-I(T) \sim \sqrt{\frac{2\pi }{-T\,\phi^{\prime\prime}(x^*)}}\,\mathrm{e}^{T \,\phi(x^*)}\left(F(x^*)+B(x^*) T^{-1}+\mathcal{O}\left(T^{-2}\right)\right),
-\end{align}
-where $x^*$ is the maximum of $\phi(x)$ and
-\begin{align}
-B(x^*) &=  - \frac{F^{\prime\prime}(x^*)}{2\, \phi^{\prime\prime}(x^*)} 
-                 + \frac{F(x^*) \phi^{\prime\prime\prime\prime}(x^*)}{8\,\phi^{\prime\prime}(x^*)^2}
-                 + \frac{F^\prime(x^*) \phi^{\prime\prime\prime}(x^*)}{2\,\phi^{\prime\prime}(x^*)^2}
-                 - \frac{5\,F(x^*) \phi^{\prime\prime\prime}(x^*)^2}{24\,\phi^{\prime\prime}(x^*)^3}
-\end{align}
+
 To compress the notation, define
 \begin{align*}
 Z_{1,2} &= z_{1,2}^{1-\eta}-1.
