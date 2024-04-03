@@ -335,7 +335,15 @@ The expected value can be calculated directly as
 \nonumber  \mathbb{E}\left[x_T \right] =&X_0 \sum_{n=0}^T  {T \choose n} \, (p\,z_1)^n (q z_2)^{T-n}\\
 \label{eq-Ex-mult-exact}& = X_0 \left(p z_1 + q z_2 \right)^T,
 \end{align}
-which follows from the binomial theorem.
+which follows from the binomial theorem. The growth factor for the expected value is the
+arithmetic mean of $z_1$ and $z_2$.
+
+Note that the typical value of $x_T$ occurs for $n = p\,T$ and is given by
+\begin{align}
+\label{eq-typical-value-mult}
+\widetilde{x}_T = X_0\,z_1^{p\,T}\,z_2^{(1-p)\,T} = X_0\,\left(z_1^p\,z_2^q \right)^T.
+\end{align}
+The growth factor for the typical value is the geometric mean of $z_1$ and $z_2$.
 
 For what follows, it is instructive to learn how to recover the large $T$ behaviour of $\mathbb{E}\left[x_T \right]$ without directly evaluating the sum.
 The idea is to take a continuum limit in which the sum can be written as an integral which can then be approximated using methods of asymptotic analysis.
@@ -446,7 +454,7 @@ Thus we learn that to correctly calculate the sub-leading behaviour, we need to 
 
 \section{Asymptotic analysis for $ 0 < \eta < 1$}
 
-We can adapt the analysis of Redner \cite{redner1990random} to calculate the leading order behaviour for $0 \leq \eta \leq 1$. Write the random $\eta$-compounding random walk in its more general form as
+We can adapt the analysis above to calculate the asymptotic behaviour for $0 \leq \eta \leq 1$. Write the random $\eta$-compounding random walk in its more general form as
 \begin{align}
 \label{eq-etaRandomWalk2}
 x_{t+1} = \left\{ 
@@ -457,7 +465,25 @@ x_t \otimes z_2  & \text{with probability $q=1-p$}.
 \right.
 \end{align}
 with $x_0 = 1$.
-
+Working through the definition of $\eta$-compounding we can write the expected value after $T$ steps as
+\begin{align}
+ \mathbb{E}\left[x_T \right]  =  \sum_{n=0}^T  P(n,T) \,G(n, T, \eta)
+\end{align}
+where
+\begin{align}
+G(n, T, \eta) &= \left[ n z_1^{1-\eta} + (T-n) z_2^{1-\eta} -T + X_0^{1-\eta}\right]^\frac{1}{1-\eta}
+\end{align}
+The typical value is
+\begin{align}
+\nonumber \widetilde{x}_T &= \left( p T z_1^{1-\eta} + (1-p) T z_2^{1-\eta} - T+X_0^{1-\eta} \right)^\frac{1}{1-\eta}\\
+\label{eq-typical-value-eta}&=  \left( p T z_1^{1-\eta} +  q T z_2^{1-\eta} - T+X_0^{1-\eta} \right)^\frac{1}{1-\eta}.
+\end{align}
+Note that this expression has a regular limit as $\eta \to 1$:
+\begin{align}
+\lim_{\eta \to 1}  \left( p T z_1^{1-\eta} +  q T z_2^{1-\eta} - T+X_0^{1-\eta} \right)^\frac{1}{1-\eta} &= X_0\,\left( z_1^p z_2^q \right)^T,
+\end{align}
+which agrees with Eq.(\ref{eq-typical-value-mult}). However, we notice that in order to reach this limit,
+we must include the $X_0$ term which is sub-leading with respect to $T$. In order to recover the large time behaviour as $\eta$ approaches the multiplicative case, the order of limits matters: we must take $\eta \to 1$ {\em before} taking $T \to \infty$.
 
 To compress the notation, define
 \begin{align*}
