@@ -109,6 +109,14 @@ S_m(T) =  \sum_{n=0}^T& {T \choose T-n} n^m.
 \end{align*}
 
 \section{Definition of $\eta$-compounding}
+
+\begin{Figure}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{./crossover.pdf}
+\end{center}
+\captionof{figure}{\small \helveticanarrow \label{fig-crossover}  Behaviour of $\exp_\eta(x)$ near $\eta=1$.}
+\end{Figure}
+
 Adopting the notation in \cite{yamano2002some} to fit the way we usually write the isoelastic utility function, we define the generalised exponential and logarithm as
 \begin{align}
 \label{eq:exp_eta}
@@ -126,6 +134,21 @@ Adopting the notation in \cite{yamano2002some} to fit the way we usually write t
 \end{array}
 \right. .
 \end{align}
+Both $\exp_\eta(x)$ and $\log_\eta(x)$ smoothly converge to the usual exponential and logarithm as $\eta \to 1$. In what follows it will be useful to characterise the behaviour near $\eta=1$ in a bit more detail. It is clear that for fixed $\eta<1$, the leading asymptotic behaviour of $\exp_\eta(x)$ for large $x$ is given by
+\begin{align*}
+\exp_\eta(x) &\sim (1 - \eta)^\frac{1}{1-\eta}\,x^\frac{1}{1-\eta}.
+\end{align*}
+When $\eta \to 1$, this expression goes to zero for any fixed $x$. It clearly does not reproduce the exponential asymptotic which we know is the correct large $x$ behaviour for $\eta = 1$. The order of limits matters: to get the correct large $x$ behaviour we must take the limit $\eta \to 1$ {\em before} the limit $x \to \infty$. This behaviour is illustrated in Figure \ref{fig-crossover}: as $\eta \to 1$, $\exp_\eta(x)$ becomes close to $\exp(x)$ for smaller values of $x$ but diverges as $x$ grows. There is no true crossover but we can estimate a characteristic scale as the minimum value of the ratio of terms
+\begin{align*}
+x_* = \argmin_{x} \frac{\mathrm{e}^x}{ (1 - \eta)^\frac{1}{1-\eta}\,x^\frac{1}{1-\eta}  },
+\end{align*}
+for which some calculations give
+\begin{align}
+\label{eq-crossover}
+x_* = \frac{1}{1-\eta},
+\end{align}
+Thus as $\eta \to 1$, the characteristic scale $x_*$  goes to $\infty$ and $\exp_\eta(x)$ converges to $\exp(x)$ from below and from left to right. 
+
 Following \cite{carr2022generalized} we define the generalised compounding operator, $\otimes$, as
 \begin{align}
 x \otimes y = & \exp_\eta\left[ \log_\eta(x )+ \log_\eta(y)\right].
@@ -476,14 +499,21 @@ G(n, T, \eta) &= \left[ n z_1^{1-\eta} + (T-n) z_2^{1-\eta} -T + X_0^{1-\eta}\ri
 The typical value is
 \begin{align}
 \nonumber \widetilde{x}_T &= \left( p T z_1^{1-\eta} + (1-p) T z_2^{1-\eta} - T+X_0^{1-\eta} \right)^\frac{1}{1-\eta}\\
-\label{eq-typical-value-eta}&=  \left( p T z_1^{1-\eta} +  q T z_2^{1-\eta} - T+X_0^{1-\eta} \right)^\frac{1}{1-\eta}.
+\label{eq-typical-value-eta}&=  \left( p T z_1^{1-\eta} +  q T z_2^{1-\eta} - T+X_0^{1-\eta} \right)^\frac{1}{1-\eta}\\
+\nonumber &= \exp_\eta\left[\log_\eta(X_0) + T \left(p \log_\eta(z_1) + q \log_\eta(z_2)\right)\right].
 \end{align}
 Note that this expression has a regular limit as $\eta \to 1$:
 \begin{align}
+\label{eq-typical-value-mult}
 \lim_{\eta \to 1}  \left( p T z_1^{1-\eta} +  q T z_2^{1-\eta} - T+X_0^{1-\eta} \right)^\frac{1}{1-\eta} &= X_0\,\left( z_1^p z_2^q \right)^T,
 \end{align}
 which agrees with Eq.(\ref{eq-typical-value-mult}). However, we notice that in order to reach this limit,
-we must include the $X_0$ term which is sub-leading with respect to $T$. In order to recover the large time behaviour as $\eta$ approaches the multiplicative case, the order of limits matters: we must take $\eta \to 1$ {\em before} taking $T \to \infty$.
+we must include the $X_0$ term which is sub-leading with respect to $T$. In order to recover the large time behaviour as $\eta$ approaches the multiplicative case, the order of limits matters: we must take $\eta \to 1$ {\em before} taking $T \to \infty$. If we take $X_0=1$ so that $\log_\eta(X_0)=0$  and refer back to Eq.~(\ref{eq-crossover}), we find that as $\eta \to 1$ the typical value tracks close to the multiplicative result, Eq.~(\ref{eq-typical-value-mult}), for 
+\begin{align}
+T &< \frac{1}{(1-\eta)\left(p \log(z_1) + q \log(z_2) \right)},
+\end{align}
+before crossing over to the $T^\frac{1}{1-\eta}$ power law behaviour.  Here we have neglected higher order correction terms in $1-\eta$.
+
 
 To compress the notation, define
 \begin{align*}

@@ -1,0 +1,322 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     12050,        314]
+NotebookOptionsPosition[     11104,        292]
+NotebookOutlinePosition[     11498,        308]
+CellTagsIndexPosition[     11455,        305]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{"Remove", "[", "\"\<Global`*\>\"", "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"exp\[Eta]", "[", "x_", "]"}], " ", ":=", " ", 
+  SuperscriptBox[
+   RowBox[{"(", 
+    RowBox[{"1", "+", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"1", "-", "\[Eta]"}], ")"}], " ", "x"}]}], ")"}], 
+   FractionBox["1", 
+    RowBox[{"1", "-", "\[Eta]"}]]]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"log\[Eta]", "[", "x_", "]"}], " ", ":=", 
+  RowBox[{
+   FractionBox["1", 
+    RowBox[{"1", "-", "\[Eta]"}]], 
+   RowBox[{"(", 
+    RowBox[{
+     SuperscriptBox["x", 
+      RowBox[{"1", "-", "\[Eta]"}]], "-", "1"}], ")"}]}]}]}], "Input",
+ CellChangeTimes->{{3.92164314926831*^9, 3.921643150042132*^9}},
+ CellLabel->
+  "In[481]:=",ExpressionUUID->"e1b732ba-75e1-42d0-b606-cffe850f8376"],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"SetOptions", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "Plot", ",", "LogLogPlot", ",", "ListLogPlot", ",", " ", "ListPlot", 
+        ",", " ", "ListLogLogPlot"}], "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"Frame", "->", " ", "True"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"LabelStyle", "->", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"FontFamily", "->", "\"\<Arial\>\""}], ",", " ", 
+         RowBox[{"FontSize", "->", "12"}]}], "}"}]}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"AspectRatio", "->", "1"}]}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"SetOptions", "[", 
+     RowBox[{"ListLogPlot", ",", "  ", 
+      RowBox[{"Joined", "->", "True"}], ",", " ", 
+      RowBox[{"FrameLabel", "->", 
+       RowBox[{"{", 
+        RowBox[{"\"\<x\>\"", ",", " ", "\"\< \>\""}], "}"}]}]}], "]"}], 
+    ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.921643187525379*^9, 3.921643188034605*^9}, {
+  3.921643822938512*^9, 3.921643858771144*^9}, {3.921644036655216*^9, 
+  3.921644056674492*^9}, {3.921644092188633*^9, 3.92164409585903*^9}, {
+  3.921644919152066*^9, 3.9216449489366713`*^9}},
+ CellLabel->
+  "In[484]:=",ExpressionUUID->"16f8b921-4e48-4e4a-8cf5-1071da4aa983"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"\[Eta]Val", "=", 
+   RowBox[{"8", "/", "10"}]}], ";"}]], "Input",
+ CellLabel->
+  "In[465]:=",ExpressionUUID->"89ed70ef-c1f9-4e94-b3a5-253ccaa7e04c"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"F1", "[", "\[Eta]Val_", "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "pos", ",", " ", "xMax", ",", " ", "xMin", ",", " ", "yMin", ",", " ", 
+      "yMax", ",", " ", "xStar", ",", " ", "p1", ",", " ", "p2", ",", " ", 
+      "p3", ",", " ", "p4"}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"pos", "=", "0.9"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"xMax", " ", "=", " ", "100"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"xMin", " ", "=", " ", "0.1"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"yMin", " ", "=", " ", 
+      SuperscriptBox["10", 
+       RowBox[{"-", "10"}]]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"yMax", " ", "=", " ", 
+      SuperscriptBox["10", "15"]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"xStar", " ", "=", " ", 
+      FractionBox["1", 
+       RowBox[{"1", " ", "-", " ", "\[Eta]Val"}]]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"p1", " ", "=", " ", 
+      RowBox[{"LogLogPlot", "[", 
+       RowBox[{
+        RowBox[{"Exp", "[", "x", "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "xMin", ",", "xMax"}], "}"}], ",", 
+        RowBox[{"PlotStyle", "->", 
+         RowBox[{"{", 
+          RowBox[{"Blue", ",", 
+           RowBox[{"PointSize", "[", ".02", "]"}]}], "}"}]}], ",", 
+        RowBox[{"PlotRange", "->", 
+         RowBox[{"{", 
+          RowBox[{"yMin", ",", " ", "yMax"}], "}"}]}], ",", "   ", 
+        RowBox[{"PlotLegends", "->", 
+         RowBox[{"Placed", "[", 
+          RowBox[{
+           RowBox[{"{", "\"\<\!\(\*SuperscriptBox[\(e\), \(x\)]\)\>\"", "}"}],
+            ",", " ", 
+           RowBox[{"{", 
+            RowBox[{"0.26", ",", " ", "pos"}], "}"}]}], "]"}]}]}], "]"}]}], 
+     ";", "\[IndentingNewLine]", 
+     RowBox[{"p2", "=", " ", 
+      RowBox[{"LogLogPlot", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"exp\[Eta]", "[", "x", "]"}], " ", "/.", " ", 
+         RowBox[{"\[Eta]", "->", " ", "\[Eta]Val"}]}], ",", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "xMin", ",", "xMax"}], "}"}], ",", 
+        RowBox[{"PlotStyle", "->", 
+         RowBox[{"{", 
+          RowBox[{"Gray", ",", 
+           RowBox[{"PointSize", "[", ".02", "]"}]}], "}"}]}], ",", 
+        RowBox[{"PlotRange", "->", "All"}], ",", "   ", 
+        RowBox[{"PlotLegends", "->", 
+         RowBox[{"Placed", "[", 
+          RowBox[{
+           RowBox[{
+           "{", "\"\<\!\(\*SubscriptBox[\(exp\), \(\[Eta]\)]\)(x)\>\"", "}"}],
+            ",", " ", 
+           RowBox[{"{", 
+            RowBox[{"0.26", ",", " ", 
+             RowBox[{"pos", "-", "0.15"}]}], "}"}]}], "]"}]}]}], "]"}]}], ";",
+      "\[IndentingNewLine]", 
+     RowBox[{"p3", " ", "=", " ", 
+      RowBox[{"LogLogPlot", "[", 
+       RowBox[{
+        RowBox[{
+         SuperscriptBox[
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"1", "-", "\[Eta]"}], ")"}], "x"}], ")"}], 
+          FractionBox["1", 
+           RowBox[{"1", "-", "\[Eta]"}]]], " ", "/.", " ", 
+         RowBox[{"\[Eta]", "->", " ", "\[Eta]Val"}]}], ",", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "xMin", ",", "xMax"}], "}"}], ",", 
+        RowBox[{"PlotStyle", "->", 
+         RowBox[{"{", 
+          RowBox[{"Red", ",", 
+           RowBox[{"PointSize", "[", ".02", "]"}]}], "}"}]}], ",", 
+        RowBox[{"PlotRange", "->", "All"}], ",", "   ", 
+        RowBox[{"PlotLegends", "->", 
+         RowBox[{"Placed", "[", 
+          RowBox[{
+           RowBox[{
+           "{", "\"\<((1-\[Eta]) x\!\(\*SuperscriptBox[\()\), FractionBox[\(1\
+\), \(1 - \[Eta]\)]]\)\>\"", "}"}], ",", " ", 
+           RowBox[{"{", 
+            RowBox[{"0.26", ",", " ", 
+             RowBox[{"pos", "-", "0.3"}]}], "}"}]}], "]"}]}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"p4", " ", "=", " ", 
+      RowBox[{"ParametricPlot", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Log", "@", "xStar"}], ",", 
+          RowBox[{"Log", "@", "u"}]}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"u", ",", "yMin", ",", "yMax"}], "}"}], ",", 
+        RowBox[{"PlotStyle", "->", 
+         RowBox[{"{", 
+          RowBox[{"Black", ",", " ", "Dashed"}], "}"}]}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"txt", "=", 
+      RowBox[{"Graphics", "[", 
+       RowBox[{"Text", "[", 
+        RowBox[{
+         RowBox[{"Style", "[", 
+          RowBox[{
+          "\"\<\!\(\*SubscriptBox[\(x\), \(*\)]\)\>\"", ",", " ", "12"}], 
+          "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"Log", " ", "@", " ", 
+            RowBox[{"(", 
+             RowBox[{"0.75", "xStar"}], ")"}]}], ",", 
+           RowBox[{"Log", " ", "@", " ", 
+            RowBox[{"(", 
+             RowBox[{"10", "yMin"}], ")"}]}]}], "}"}]}], "]"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Show", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "p1", ",", "p2", ",", " ", "p3", ",", " ", "p4", ",", " ", "txt"}], 
+        "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"FrameLabel", "->", 
+        RowBox[{"{", 
+         RowBox[{
+         "\"\<x\>\"", ",", " ", 
+          "\"\<\!\(\*SubscriptBox[\(exp\), \(\[Eta]\)]\)(x)\>\""}], "}"}]}]}],
+       "]"}]}]}], "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellChangeTimes->CompressedData["
+1:eJxTTMoPSmViYGAQB2IQvdLA/9YH87eOu+v33gXR+5Z/eQiiH6oueAyiRfR/
+PwfR65gPfwfRDXq3/4LobT6mLB+B9JUd9hxgWtJECkTfqmHWBdE/nK/Zgugt
+0k99QPS9l5bBIFpvX34KiJ7G0pUJou9s+1YBomPFA+vA6hQXt4BopuKcVhC9
+3OfLJBAtteHgZBCtNE9iHoi2t5CfD6IZxZw2g2j/yKItIHrRgTV7QXTvpcWH
+QHT1/t1nQfSnN36XQfSXzXyin4D0S740MRD9YcMCaTD/qLUCiH6Sqa4Kotv0
+r+uD6INXlsWB6IYg/3gQXdlyvQJEL7e1rgHRC8qTO0D0g70CvSD6T7zeNBAd
+yamzAET/PXNwGYh+IzhpFYgGAPODy88=
+  "],
+ CellLabel->
+  "In[498]:=",ExpressionUUID->"46d9d765-0930-4f2a-be03-8be9f2718525"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"F1", "[", "\[Eta]Val", "]"}], ",", " ", 
+   RowBox[{"{", 
+    RowBox[{"\[Eta]Val", ",", " ", "0.5", ",", " ", "1"}], "}"}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.9216452303822927`*^9, 3.921645261690495*^9}},
+ CellLabel->
+  "In[499]:=",ExpressionUUID->"f1663662-eeca-4f33-8dc0-291108c5d483"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`\[Eta]Val$$ = 0.639, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`\[Eta]Val$$], 0.5, 1}}, Typeset`size$$ = {
+    360., {170., 175.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`\[Eta]Val$$ = 0.5}, 
+      "ControllerVariables" :> {}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, 
+      "Body" :> $CellContext`F1[$CellContext`\[Eta]Val$$], 
+      "Specifications" :> {{$CellContext`\[Eta]Val$$, 0.5, 1}}, 
+      "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{404., {215., 221.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{{3.92164523701639*^9, 3.9216452633488073`*^9}, {
+   3.921645832045529*^9, 3.921645871760449*^9}, {3.921646540312104*^9, 
+   3.921646550070648*^9}, 3.9216467015758877`*^9, {3.921646812781699*^9, 
+   3.921646821813986*^9}, 3.9216469432845907`*^9},
+ CellLabel->
+  "Out[499]=",ExpressionUUID->"83a090d4-3fc0-4123-b19c-7c1b306cb19e"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"F1", "[", "\[Eta]Val", "]"}]], "Input",ExpressionUUID->"5665f92d-afb4-414b-9e5d-c4f8ccb1ed80"]
+},
+WindowSize->{808, 816},
+WindowMargins->{{235, Automatic}, {Automatic, 47}},
+FrontEndVersion->"13.1 for Mac OS X ARM (64-bit) (June 16, 2022)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"cfa87556-e90e-46d2-acfa-ad0b20dc50a6"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 804, 23, 106, "Input",ExpressionUUID->"e1b732ba-75e1-42d0-b606-cffe850f8376"],
+Cell[1365, 45, 1323, 32, 136, "Input",ExpressionUUID->"16f8b921-4e48-4e4a-8cf5-1071da4aa983"],
+Cell[2691, 79, 183, 5, 30, "Input",ExpressionUUID->"89ed70ef-c1f9-4e94-b3a5-253ccaa7e04c"],
+Cell[2877, 86, 5863, 148, 492, "Input",ExpressionUUID->"46d9d765-0930-4f2a-be03-8be9f2718525"],
+Cell[CellGroupData[{
+Cell[8765, 238, 362, 9, 30, "Input",ExpressionUUID->"f1663662-eeca-4f33-8dc0-291108c5d483"],
+Cell[9130, 249, 1837, 37, 455, "Output",ExpressionUUID->"83a090d4-3fc0-4123-b19c-7c1b306cb19e"]
+}, Open  ]],
+Cell[10982, 289, 118, 1, 30, "Input",ExpressionUUID->"5665f92d-afb4-414b-9e5d-c4f8ccb1ed80"]
+}
+]
+*)
+
