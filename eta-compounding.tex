@@ -378,7 +378,7 @@ to approximate the factorials. We then take the continuum limit, $T\to \infty$ w
  to obtain 
 \begin{align}
 \label{eq-binomial-distribution-cts-limit}
-P(x, T) = \left\{
+P_\text{cont}(x, T) = \left\{
 \begin{array}{ll}
 \frac{1}{\sqrt{2 \pi T \,x\,(1-x)}}\,\mathrm{e}^{T\,\phi(x)}\left(1 + \frac{1}{12}\left( 1-\frac{1}{x} - \frac{1}{1-x}\right) \frac{1}{T}   + \mathcal{O}\left(\frac{1}{T^2}\right)\right) & 0 < x< 1\\
 0 & \text{otherwise}
@@ -387,7 +387,8 @@ P(x, T) = \left\{
 \end{align}
 where
 \begin{align}
-\phi(x) =    x \log(p) +  (1 - x) \log (q)  - x \log(x)  (1 - x) \log(1 - x).
+\label{eq-phi}
+\phi(x) =    x \log(p) +  (1 - x) \log (q)  - x \log(x) -  (1 - x) \log(1 - x).
 \end{align}
 Writing $\mathbb{E}\left[x_T \right]$ in the form
 \begin{align*}
@@ -395,8 +396,8 @@ Writing $\mathbb{E}\left[x_T \right]$ in the form
 \end{align*}
 we can replace the sum by an integral in the continuum limit to obtain
 \begin{align}
-\nonumber \mathbb{E}\left[x_T \right] &=   T\,X_0\, \int_{-\infty}^\infty P(x, T)\,\left( z_1^x\,z_2^{1-x}\right)^T\\ 
-\nonumber & = T\,X_0\, \int_{-\infty}^\infty P(x, T)\,\mathrm{e}^{T\left(x\log z_1 + (1-x)\log z_2 \right)}\\
+\nonumber \mathbb{E}\left[x_T \right] &=   T\,X_0\, \int_{-\infty}^\infty P_\text{cont}(x, T)\,\left( z_1^x\,z_2^{1-x}\right)^T\\ 
+\nonumber & = T\,X_0\, \int_{-\infty}^\infty P_\text{cont}(x, T)\,\mathrm{e}^{T\left(x\log z_1 + (1-x)\log z_2 \right)}\\
 \label{eq-Ex-mult1} & = T^\frac{1}{2} X_0  \int_{-\infty}^\infty  \frac{d x}{\sqrt{2 \pi \,x\,(1-x)}}\,\mathrm{e}^{T\,\widetilde{\phi}(x)}\left(1 + \frac{1}{12}\left( 1-\frac{1}{x} - \frac{1}{1-x}\right) \frac{1}{T}   + \mathcal{O}\left(\frac{1}{T^2}\right)\right) \, \chi_{\left[0, 1\right]}(x),
 \end{align}
 where 
@@ -490,6 +491,7 @@ x_t \otimes z_2  & \text{with probability $q=1-p$}.
 with $x_0 = 1$.
 Working through the definition of $\eta$-compounding we can write the expected value after $T$ steps as
 \begin{align}
+\label{eq-expected-value-eta}
  \mathbb{E}\left[x_T \right]  =  \sum_{n=0}^T  P(n,T) \,G(n, T, \eta)
 \end{align}
 where
@@ -514,6 +516,41 @@ T &< \frac{1}{(1-\eta)\left(p \log(z_1) + q \log(z_2) \right)},
 \end{align}
 before crossing over to the $T^\frac{1}{1-\eta}$ power law behaviour.  Here we have neglected higher order correction terms in $1-\eta$.
 
+To obtain the large $T$ behaviour of the expected value, $\mathbb{E}\left[x_T \right] $,  start by writing
+Eq.~(\ref{eq-expected-value-eta}) in the form
+\begin{align*}
+ \mathbb{E}\left[x_T \right]  =  \sum_{n=0}^T  P(n,T) \,T^\frac{1}{1-\eta}\, \left[ \left(\frac{n}{T}\right) z_1^{1-\eta} + \left(1-\frac{n}{T}\right) z_2^{1-\eta} -1 + \frac{X_0^{1-\eta}}{T}\right]^\frac{1}{1-\eta}.
+\end{align*}
+We again take the continuum limit, $T\to \infty$ with $x=\frac{n}{T}$ fixed, and replace the sum with an integral in Eq.~(\ref{eq-expected-value-eta}) to obtain
+\begin{align}
+\nonumber \mathbb{E}\left[x_T \right] & =  T^{1+\frac{1}{1-\eta}}\, \int_{-\infty}^\infty P_\text{cont}(x, T)\,  \left[ x z_1^{1-\eta} + \left(1-x\right) z_2^{1-\eta} -1 + \frac{X_0^{1-\eta}}{T}\right]^\frac{1}{1-\eta}\,d x\\
+  \label{eq-EV-eta}&= T^{\frac{1}{1-\eta}+\frac{1}{2}}  \int_{-\infty}^\infty F(x,T) \,\mathrm{e}^{T\,\phi(x)}\left(1 + \frac{1}{12}\left( 1-\frac{1}{x} - \frac{1}{1-x}\right) \frac{1}{T}   + \mathcal{O}\left(\frac{1}{T^2}\right)\right) \, \chi_{\left[0, 1\right]}(x) \, dx,
+\end{align} 
+where
+\begin{align*}
+F(x,T) = \frac{1}{\sqrt{2 \pi \,x\,(1-x)}} \,  \left[ x z_1^{1-\eta} + \left(1-x\right) z_2^{1-\eta} -1 + \frac{X_0^{1-\eta}}{T}\right]^\frac{1}{1-\eta}
+\end{align*}
+and $\phi(x)$ is given by Eq.~(\ref{eq-phi}). Now expand $F(x,T)$ in powers of $\frac{1}{T}$:
+\begin{align*}
+F(x,T) =  \frac{1}{\sqrt{2 \pi \,x\,(1-x)}} \,   \sum_{k=0}^\infty {\frac{1}{1-\eta} \choose k} \left(x z_1^{1-\eta} + \left(1-x\right) z_2^{1-\eta} -1 \right)^{\frac{1}{1-\eta}-k}\,X_0^{(1-\eta)\,k}\frac{1}{T^k}
+\end{align*}
+If we keep only the leading term in Eq.~(\ref{eq-EV-eta}), and exchange the order of integration and summation we get
+\begin{align}
+\label{eq-EV-eta-2}
+\mathbb{E}\left[x_T \right] & =  T^{\frac{1}{1-\eta}+\frac{1}{2}}   \sum_{k=0}^\infty {\frac{1}{1-\eta} \choose k}  \mathcal{F}_k(T) \left(\frac{X_0^{1-\eta}}{T}\right)^k,
+\end{align}
+where the $\mathcal{F}_k(T)$ are integrals whose asymptotic behaviour for large $T$ can be obtained directly using the Laplace method:
+\begin{align}
+\mathcal{F}_k(T) &=   \int_{-\infty}^\infty    \frac{dx}{\sqrt{2 \pi \,x\,(1-x)}}\,\left(x z_1^{1-\eta} + \left(1-x\right) z_2^{1-\eta} -1 \right)^{\frac{1}{1-\eta}-k}\, \mathrm{e}^{T\,\phi(x)} \\
+&\sim \frac{1}{\sqrt{T}}\, \left( p z_1^{1-\eta} + q z_2^{1-\eta} -1\right)^{\frac{1}{1-\eta}-k}.
+\end{align}
+Putting this back into Eq.~(\ref{eq-EV-eta-2}), we get
+\begin{align}
+\nonumber \mathbb{E}\left[x_T \right] &\sim T^\frac{1}{1-\eta}   \sum_{k=0}^\infty {\frac{1}{1-\eta} \choose k}   \,\left( p z_1^{1-\eta} + q z_2^{1-\eta} -1\right)^{\frac{1}{1-\eta}-k}\,\left(\frac{X_0^{1-\eta}}{T}\right)^k \\
+\label{eq-EV-eta-3} &=  T^\frac{1}{1-\eta} \, \left( p z_1^{1-\eta} + q z_2^{1-\eta} -1 + \frac{X_0^{1-\eta}}{T}\right)^\frac{1}{1-\eta} \\
+\nonumber &= \widetilde{x}_T.
+\end{align}
+Thus to leading order, $ \mathbb{E}\left[x_T \right] $ coincides with the typical value for large $T$. Note that Eq.~(\ref{eq-EV-eta-3}) behaves exponentially as $\eta \to 1$ as per Eq.~(\ref{eq-typical-value-mult}). However we do not recover the correct growth rate which we know from the exact result Eq.~(\ref{eq-Ex-mult-exact})
 
 To compress the notation, define
 \begin{align*}
