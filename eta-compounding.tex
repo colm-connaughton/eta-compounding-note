@@ -431,6 +431,7 @@ I(T) \sim \sqrt{\frac{2\pi }{-T\,\phi^{\prime\prime}(x^*)}}\,\mathrm{e}^{T \,\ph
 \end{align}
 where $x^*$ is the maximum of $\phi(x)$ and
 \begin{align}
+\label{eq-LaplaceAsymptoticFormulaLeadingCorrection}
 B(x^*) &=  - \frac{F^{\prime\prime}(x^*)}{2\, \phi^{\prime\prime}(x^*)} 
                  + \frac{F(x^*) \phi^{\prime\prime\prime\prime}(x^*)}{8\,\phi^{\prime\prime}(x^*)^2}
                  + \frac{F^\prime(x^*) \phi^{\prime\prime\prime}(x^*)}{2\,\phi^{\prime\prime}(x^*)^2}
@@ -550,20 +551,17 @@ Putting this back into Eq.~(\ref{eq-EV-eta-2}), we get
 \label{eq-EV-eta-3} &=  T^\frac{1}{1-\eta} \, \left( p z_1^{1-\eta} + q z_2^{1-\eta} -1 + \frac{X_0^{1-\eta}}{T}\right)^\frac{1}{1-\eta} \\
 \nonumber &= \widetilde{x}_T.
 \end{align}
-Thus to leading order, $ \mathbb{E}\left[x_T \right] $ coincides with the typical value for large $T$. Note that Eq.~(\ref{eq-EV-eta-3}) behaves exponentially as $\eta \to 1$ as per Eq.~(\ref{eq-typical-value-mult}). However we do not recover the correct growth rate which we know from the exact result Eq.~(\ref{eq-Ex-mult-exact})
-
-To compress the notation, define
-\begin{align*}
-Z_{1,2} &= z_{1,2}^{1-\eta}-1.
-\end{align*}
-The final answer is
-
+To leading order, $\mathbb{E}\left[x_T \right] $ coincides with the typical value for large $T$. Note that Eq.~(\ref{eq-EV-eta-3}) behaves exponentially as $\eta \to 1$ as per Eq.~(\ref{eq-typical-value-mult}). However we do not recover the correct growth rate which we know from the exact result Eq.~(\ref{eq-Ex-mult-exact}). Eq.~(\ref{eq-EV-eta-3}) results from adding up an infinite sum of sub-leading contributions but we didn't do this consistently: some sub-leading terms were not included without any justification. To calculate the asymptotic difference between $\mathbb{E}\left[x_T \right] $ and $ \widetilde{x}_T$, we need to consistently account for all the terms of order $\frac{1}{T}$ in Eq.~(\ref{eq-EV-eta}). There are two terms that we neglected: the $\mathcal{O}\left(\frac{1}{T}\right)$ term in Eq.~(\ref{eq-EV-eta}) coming from the correction to Stirling's formula and the $\mathcal{O}\left(\frac{1}{T}\right)$ term that arose when we applied the Laplace method to calculate $\mathcal{F}_0(T)$ (see Eq.~(\ref{eq-LaplaceAsymptoticFormula}) and Eq.~(\ref{eq-LaplaceAsymptoticFormulaLeadingCorrection}) ). As with, the purely multiplicative case, there are cancellations between these two terms at $\mathcal{O}\left(\frac{1}{T}\right)$ so both need to be calculated carefully. If you do this in Mathematica, you end up with the asymptotic formula
 \begin{align*}
 \mathbb{E}\left[x_T\right] = T^\frac{1}{1-\eta} \left( p Z_1 + q Z_2\right)^\frac{1}{1-\eta} \left[ 1+  
 \frac{1}{T}\left( \frac{p q}{2}\frac{\eta}{(1-\eta)^2}\left(\frac{Z_1-Z_2}{pZ_1+q Z_2}\right)^2 + \frac{X_0^{1-\eta}}{1-\eta} \frac{1}{p Z_1+q Z_2}\right)
-+ \mathcal{O}\left(\frac{1}{T^2}\right) \right]
++ \mathcal{O}\left(\frac{1}{T^2}\right) \right],
 \end{align*}
-
+where, to compress the notation, we have defined
+\begin{align*}
+Z_{1,2} &= z_{1,2}^{1-\eta}-1.
+\end{align*}
+This formula agrees with the exact results available for $\eta = \frac{1}{2}$ and $\eta=\frac{2}{3}$ for the case $p=\frac{1}{2}$ so we can be fairly confident that we have the correct behaviour.
 \bibliographystyle{plain}
 \bibliography{refs}
 
