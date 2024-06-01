@@ -49,6 +49,7 @@
 
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator\arctanh{arctanh}
 
 \titleformat{\section}
   {\large\hvnb\color{blue}}{\thesection}{1em}{}
@@ -562,6 +563,77 @@ where, to compress the notation, we have defined
 Z_{1,2} &= z_{1,2}^{1-\eta}-1.
 \end{align*}
 This formula agrees with the exact results available for $\eta = \frac{1}{2}$ and $\eta=\frac{2}{3}$ for the case $p=\frac{1}{2}$ so we can be fairly confident that we have the correct behaviour.
+
+\section{Uniform asymptotic expansion near $\eta = 1$}
+
+Neglecting the higher order terms in $P_\text{cont}(x,T)$ for now, let us write Eq.~(\ref{eq-EV-eta}) in the form
+\begin{align}
+\nonumber \mathbb{E}\left[x_T \right] & 
+= T^\frac{1}{2}  \int_{-\infty}^\infty \frac{dx}{\sqrt{2 \pi x (1-x)}} \,\mathrm{e}^{T\,\phi(x)+ \frac{1}{\zeta}\log\left[T \left( x (z_1^\zeta - 1) + (1-x) (z_2^\zeta -1) \right) + X_0^{\zeta} \right]}\\
+  \label{eq-EV-eta-2}  &= T^\frac{1}{2}  \int_{-\infty}^\infty \frac{dx}{\sqrt{2 \pi x (1-x)}} \,\mathrm{e}^{T\, \left\{\phi(x)+ \frac{1}{\zeta T}\log\left[T \left( x (z_1^\zeta - 1) + (1-x) (z_2^\zeta -1) \right) + X_0^{\zeta} \right]\right\}},
+\end{align} 
+where we have defined $\zeta = 1 - \eta$ for convenience.
+To obtain a uniform asymptotic expansion that (hopefully) remains valid as $\eta \to 1$, we need to introduce the uniformity parameter,
+\begin{align}
+\label{eq-uniformity-parameter}
+\lambda = \zeta \,T,
+\end{align}
+and then take the limit $T\to\infty$ with $\lambda$ fixed.  This corresponds to a limit where $T$ is large and $\zeta = 1-\eta = \mathcal{O}\left(\frac{1}{T}\right)$. Writing $T=\frac{\lambda}{\zeta}$ inside the $\log$ part of the phase function in Eq.~(\ref{eq-EV-eta-2}) we can write
+\begin{align}
+  \label{eq-EV-eta-3}  \mathbb{E}\left[x_T \right] & = T^\frac{1}{2}  \int_{-\infty}^\infty \frac{dx}{\sqrt{2 \pi x (1-x)}} \,\mathrm{e}^{T\,\psi_\lambda(x)},
+\end{align}
+where the new phase function is
+\begin{align}
+\nonumber \psi_\lambda(x) &=    x \log(p) +  (1 - x) \log (q)  - x \log(x) -  (1 - x) \log(1 - x) \\
+\label{eq-psi_lambda} &+  \frac{1}{\lambda}\log\left[\frac{\lambda}{\zeta} \left( x (z_1^\zeta - 1) + (1-x) (z_2^\zeta -1) \right) + X_0^{\zeta} \right].
+\end{align}
+Eq.~(\ref{eq-EV-eta-3}) is a standard Laplace integral with the phase function parameterised by the (fixed) uniformity parameter, $\lambda$.
+The first two derivatives of $\psi_\lambda(x)$ are
+\begin{align}
+\psi_\lambda^\prime(x) & = 2\, \arctanh(1-2 x) + \log\left(\frac{p}{q}\right) + \frac{z_1^\zeta - z_2^\zeta}{\zeta X_0^\zeta + \lambda\left( x (z_1^\zeta -1) + (1-x)(z_2^\zeta - 1)\right)} \\
+\psi_\lambda^{\prime\prime}(x) & = -\frac{1}{x} -\frac{1}{1-x} -  \frac{\lambda(z_1^\zeta - z_2^\zeta)^2}{\left[ \zeta X_0^\zeta + \lambda\left( x (z_1^\zeta -1) + (1-x)(z_2^\zeta - 1)\right)\right]^2}. 
+\end{align}
+Finding the critical point, $x_\lambda^*$, requires the solution of a transcendental equation which, writing $x = \frac{1}{2}(1- y)$ can be written as
+\begin{align}
+0=-2 \arctanh(y) + \log\left(\frac{p}{q}\right) + \frac{1}{\frac{\lambda}{2} \left(1 - y \right) + \frac{\zeta X_0^\zeta}{z_1^\zeta - z_2^\zeta}} 
+\end{align}
+I don''t know how to solve this equation in general but two limiting cases can be considered:
+
+\begin{itemize}
+\item{$\mathbf \lambda \to \infty$:\\}
+In this case we have
+\begin{align*}
+0 &= 2 \arctanh(y) + \log\left(\frac{p}{q}\right)\\
+\Rightarrow y_\infty^* & = \tanh \left[-\frac{1}{2}\log\left(\frac{p}{q}\right) \right]\\
+\Rightarrow x_\infty^* & = \frac{1}{2}\left( 1 -  \tanh \left[-\frac{1}{2}\right]\ \right)\\
+&= \frac{\mathrm{e}^{\log\left(\frac{p}{q}\right) }}{1 + \mathrm{e}^{\log\left(\frac{p}{q}\right)} }\\
+&= \frac{p}{p+q} = p.
+\end{align*}
+This is the same critical point we found earlier for the case $\eta <1$.
+\item{$\mathbf \lambda \to 0$:\\}
+In this case we have:
+\begin{align}
+\nonumber 0 &= 2 \arctanh(y) + \log\left(\frac{p}{q}\right) + \frac{z_1^\zeta - z_2^\zeta}{\zeta X_0^\zeta}\\
+\nonumber \Rightarrow y_\infty^* & = \tanh \left[-\frac{1}{2}\left(\log\left(\frac{p}{q}\right) +  \frac{z_1^\zeta - z_2^\zeta}{\zeta X_0^\zeta}\right) \right]\\
+\nonumber \Rightarrow x_\infty^* & = \frac{1}{2}\left( 1 -  \tanh \left[-\frac{1}{2}\left( \log\left(\frac{p}{q}\right) +  \frac{z_1^\zeta - z_2^\zeta}{\zeta X_0^\zeta}\right)\right]\ \right)\\
+\Rightarrow x_\infty^* &= \frac{\xi(\zeta)}{1 + \xi(\zeta) }
+\end{align}
+where
+\begin{align}
+\label{eq-xi_zeta}
+\xi(\zeta) = \frac{p}{q}\,\mathrm{e}^{\frac{z_1^\zeta - z_2^\zeta}{\zeta X_0^\zeta}}.
+\end{align}
+Note that
+\begin{align*}
+\lim_{\zeta \to 0} \xi(\zeta) =  \frac{p}{q} \,\mathrm{e}^{\frac{\zeta \left( \log(z_1) - \log(z_2)\right)}{\zeta}} =  \frac{p}{q} \frac{z_1}{z_2},
+\end{align*}
+so in this limit Eq.~(\ref{eq-xi_zeta}) approaches the critical point Eq.~(\ref{eq-xStar-mult}) which we already found for the case $\eta=1$.
+\end{itemize}
+
+
+
+
+
 \bibliographystyle{plain}
 \bibliography{refs}
 
