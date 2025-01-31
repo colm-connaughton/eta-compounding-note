@@ -77,7 +77,7 @@
 
 \begin{multicols}{2}
 
-%\section{Definition of the model}
+\section{Definition of the model}
 Consider a multiplicative random walk in discrete time with growth factors $g+r$ and $g-r$ occuring with equal probability: 
 \begin{align}
 \label{eq-multRandomWalk}
@@ -97,6 +97,7 @@ The following identities satisfied by the binomial coefficients will be useful:
 \label{eq:binomialSum2}  \sum_{n=0}^T {T \choose n} \,n^2  =& \sum_{n=0}^T {T \choose n} \,(T - n)^2 = T\,(T+1)\,2^{T -2}.
 \end{align}
 
+\section{Expectation value, variance and standard deviation after $T$ steps}
 
 If, after playing $T$ rounds of the game, we experience $n$ ``wins" (and $T-n$ "losses"), then $x_T$ will take the value
 \begin{align*}
@@ -136,6 +137,8 @@ The standard deviation is then
 \end{align}
 which also grows exponentially at a rate which is faster than that of the expectation value, Eq.~(\ref{eq-expectationxT}). Thus the uncertainty in the outcome after $T$ rounds grows even in relative terms.
 
+\section{Typical value after $T$ steps}
+
 The {\em typical} value of $x_T$ can be found by finding $n^*$,  the value of $n$ that maximises the probability, Eq.~(\ref{eq:binomialDistr}). This is
 \begin{align*}
 n^* =& \argmax_{n} {T \choose n}\\
@@ -149,6 +152,7 @@ Thus the typical value of $x_T$ is
 The typical value also shows exponential dependence on $T$, but since $\left| r\right| < g$, it is clear that the typical value of $x_T$ is always exponentially smaller than the expectation value of $x_T$.
 For the values of $g$ and $r$ corresponding to Peters' bet, the expectation value {\em increases} by a factor of 1.05 per round whereas the typical value {\em decreases} by a factor of $\frac{3}{\sqrt{10}} \approx 0.948683$ per round.
 
+\section{Time averaged growth rate}
 The time averaged growth rate is
 \begin{align}
 \label{eq:gammaT}
@@ -185,7 +189,8 @@ where the last line follows from the identity Eq.~(\ref{eq:binomialSum1}).
 It is a bit more work to calculate the second moment of $y_T$:
 \begin{align}
 \nonumber \mathbb{E}\left[y_T^2 \right] =& \sum_{n=0}^T  {T \choose n} \left(\frac{1}{2}\right)^T  \left[ n\, a + (T-n)\,b \right] ^2\\
-\nonumber =& \frac{(a-b)^2}{2^T}\left( \sum_{n=0}^T  {T \choose n} n^2 \right) +  2\, \frac{(a - b)\, b\, T}{2^T} \left(\sum_{n=0}^T  {T \choose n} n \right) \\
+\nonumber =& \frac{(a-b)^2}{2^T}\left( \sum_{n=0}^T  {T \choose n} n^2 \right) \\
+\nonumber & +  2\, \frac{(a - b)\, b\, T}{2^T} \left(\sum_{n=0}^T  {T \choose n} n \right) \\
 \nonumber &  + \frac{b^2 T^2}{2^T} \left( \sum_{n=0}^T  {T \choose n} \right) \\ 
 \label{eq:varianceyT} = & \frac{1}{4} T \left( (a + b)^2 T  + (a-b)^2\right),
 \end{align}
@@ -219,6 +224,51 @@ To conclude, consider a trajectory that grows exponentially with the long-time g
 \end{align*}
 which corresponds to the typical value of the original process $x_T$ found in Eq.~(\ref{eq:typicalxT}). This correspondence explains why analysing repeated multiplicative gambles in terms of grow rates is equivalent to reasoning about representative outcomes rather than expectation values of outcomes.
 
+\section{Optimal leverage and Kelly Criterion}
+
+Suppose we now consider a combination of a geometric random walk  given by Eq.(\ref{eq-multRandomWalk}) and a deterministic multiplicative growth process
+\begin{align}
+\label{eq-deterministicGrowth}
+x_{t+1} = h\, x_t, 
+\end{align}
+with growth factor $h>0$. 
+In the investment analogy, Eq.~(\ref{eq-multRandomWalk}) describes a risky asset and Eq.~(\ref{deterministicGrowth}) describes a risk-free asset.
+The optimal leverage question is to determine what proportion of an investor's wealth should be invested in the risky asset versus the risk-free asset in order to maximise the time-averaged growth rate.
+Let us denote the leverage by $f$.
+That is to say, at every step a proportion $f$ is invested in the risky asset and $1-f$ in the risk-free asset.
+The dynamics can be written as
+\begin{align}
+\nonumber
+x_{t+1} &= \left\{ 
+\begin{array}{ll}
+h\, (1-f)\, x_t + \left(g +r \right)\,f\, x_t & \text{with prob. $\frac{1}{2}$}\\
+h\, (1-f)\, x_t + \left(g - r \right)\, f\, x_t  & \text{with prob. $\frac{1}{2}$}
+\end{array}
+\right. \\
+&= \left\{ 
+\begin{array}{ll}
+ \left(G +R \right) \, x_t & \text{with prob. $\frac{1}{2}$}\\
+ \left(G - R \right)\, x_t  & \text{with prob. $\frac{1}{2}$}.
+\end{array}
+\right.
+\end{align}
+where
+\begin{align*}
+G & = \left( g - h \right) \, f + h\\
+R & = f\, r.
+\end{align*}
+We still have a multiplicative random walk with different growth factors. 
+We can now use the results of the previous section. The time averaged growth factor is
+\begin{align}
+\nonumber \Lambda(f) & = \sqrt{G^2 - R^2}\\
+&= \sqrt{( \left( g - h \right) \, f + h)^2 - f^2r^2 }.
+\end{align}
+Differentiating with respect to $f$ and setting $\Lambda^\prime(f^*) = 0$ we obtain the optimal leverage value (or Kelly Criterion),
+\begin{align}
+f^* = \frac{(g-h)\, h}{r^2 - (g-h)^2}.
+\end{align}
+Note that the optimal leverage can be negative which indicates that one should take a short position in the risky asset.
+For the original parameters, $g=\frac{21}{20}$, $r=\frac{9}{20}$ and $h=1$, this gives $f^* = \frac{1}{4}$ and $\Lambda(f^*) = \frac{9}{4\sqrt{5}} \approx 1.00623$.
 %\bibliographystyle{plain}
 %\bibliography{refs}
 
