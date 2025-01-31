@@ -403,7 +403,7 @@ we can replace the sum by an integral in the continuum limit to obtain
 \end{align}
 where 
 \begin{align}
-\widetilde{\phi}(x) =  x \log(p) +  (1 - x) \log (q)  - x \log(x)  (1 - x) \log(1 - x) + x \log z_1 +  (1-x)\log z_2.
+\widetilde{\phi}(x) =  x \log(p) +  (1 - x) \log (q)  - x \log(x) -  (1 - x) \log(1 - x) + x \log z_1 +  (1-x)\log z_2.
 \end{align}
 $\mathbb{E}\left[x_T \right] $ can therefore be broken up into a series of integrals,
 \begin{align}
@@ -593,11 +593,24 @@ The first two derivatives of $\psi_\lambda(x)$ are
 \psi_\lambda^\prime(x) & = 2\, \arctanh(1-2 x) + \log\left(\frac{p}{q}\right) + \frac{z_1^\zeta - z_2^\zeta}{\zeta X_0^\zeta + \lambda\left( x (z_1^\zeta -1) + (1-x)(z_2^\zeta - 1)\right)} \\
 \psi_\lambda^{\prime\prime}(x) & = -\frac{1}{x} -\frac{1}{1-x} -  \frac{\lambda(z_1^\zeta - z_2^\zeta)^2}{\left[ \zeta X_0^\zeta + \lambda\left( x (z_1^\zeta -1) + (1-x)(z_2^\zeta - 1)\right)\right]^2}. 
 \end{align}
-Finding the critical point, $x_\lambda^*$, requires the solution of a transcendental equation which, writing $x = \frac{1}{2}(1- y)$ can be written as
+From Eq.~(\ref{eq-LaplaceAsymptoticFormula}), the leading order behaviour for large time is exponential:
 \begin{align}
-0=-2 \arctanh(y) + \log\left(\frac{p}{q}\right) + \frac{1}{\frac{\lambda}{2} \left(1 - y \right) + \frac{\zeta X_0^\zeta}{z_1^\zeta - z_2^\zeta}} 
+  \label{eq-EV-eta-4}  \mathbb{E}\left[x_T \right] & \sim  \frac{1}{\sqrt{-\psi_\lambda^{\prime\prime}(x_\lambda^*)\,x_\lambda^*(1-x_\lambda^*)}}\,\mathrm{e}^{T \,\psi_\lambda(x_\lambda^*)},
 \end{align}
-I don''t know how to solve this equation in general but two limiting cases can be considered:
+where $x_\lambda^*$ is the solution of 
+\begin{align*}
+\psi_\lambda^\prime(x)  = 0.
+\end{align*}
+This is a transcendental equation which, writing $x = \frac{1}{2}(1- y)$, takes the form
+\begin{align}
+\label{eq-critical-point}
+0=2 \arctanh(y) + \log\left(\frac{p}{q}\right) + \frac{1}{\frac{\lambda}{2} \left(1 - y \right) + \frac{\zeta X_0^\zeta}{z_1^\zeta - z_2^\zeta}}.
+\end{align}
+
+I don''t know how to solve this equation analytically but it can be solved numerically
+
+
+Two limiting cases can also be considered:
 
 \begin{itemize}
 \item{$\mathbf \lambda \to \infty$:\\}
@@ -614,9 +627,9 @@ This is the same critical point we found earlier for the case $\eta <1$.
 In this case we have:
 \begin{align}
 \nonumber 0 &= 2 \arctanh(y) + \log\left(\frac{p}{q}\right) + \frac{z_1^\zeta - z_2^\zeta}{\zeta X_0^\zeta}\\
-\nonumber \Rightarrow y_\infty^* & = \tanh \left[-\frac{1}{2}\left(\log\left(\frac{p}{q}\right) +  \frac{z_1^\zeta - z_2^\zeta}{\zeta X_0^\zeta}\right) \right]\\
-\nonumber \Rightarrow x_\infty^* & = \frac{1}{2}\left( 1 -  \tanh \left[-\frac{1}{2}\left( \log\left(\frac{p}{q}\right) +  \frac{z_1^\zeta - z_2^\zeta}{\zeta X_0^\zeta}\right)\right]\ \right)\\
-\Rightarrow x_\infty^* &= \frac{\xi(\zeta)}{1 + \xi(\zeta) }
+\nonumber \Rightarrow y_0^* & = \tanh \left[-\frac{1}{2}\left(\log\left(\frac{p}{q}\right) +  \frac{z_1^\zeta - z_2^\zeta}{\zeta X_0^\zeta}\right) \right]\\
+\nonumber \Rightarrow x_0^* & = \frac{1}{2}\left( 1 -  \tanh \left[-\frac{1}{2}\left( \log\left(\frac{p}{q}\right) +  \frac{z_1^\zeta - z_2^\zeta}{\zeta X_0^\zeta}\right)\right]\ \right)\\
+\label{eq-x_star_zero}\Rightarrow x_0^* &= \frac{\xi(\zeta)}{1 + \xi(\zeta) }
 \end{align}
 where
 \begin{align}
@@ -627,10 +640,15 @@ Note that
 \begin{align*}
 \lim_{\zeta \to 0} \xi(\zeta) =  \frac{p}{q} \,\mathrm{e}^{\frac{\zeta \left( \log(z_1) - \log(z_2)\right)}{\zeta}} =  \frac{p}{q} \frac{z_1}{z_2},
 \end{align*}
-so in this limit Eq.~(\ref{eq-xi_zeta}) approaches the critical point Eq.~(\ref{eq-xStar-mult}) which we already found for the case $\eta=1$.
+so in this limit Eq.~(\ref{eq-x_star_zero}) approaches the critical point Eq.~(\ref{eq-xStar-mult}) which we already found for the case $\eta=1$.
 \end{itemize}
 
-
+\begin{Figure}
+\begin{center}
+\includegraphics[width=0.45\textwidth]{./x_star_lambda.pdf}
+\end{center}
+\captionof{figure}{\small \helveticanarrow \label{fig-x_star_lambda}  Numerical solution of Eq.~(\ref{eq-critical-point}).}
+\end{Figure}
 
 
 
